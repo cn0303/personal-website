@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sketch 001 — Home / Hero Direction</title>
+
+<!-- Fonts: Merriweather (serif) · Satoshi (sans, via Fontshare) · JetBrains Mono -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700,900&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="../themes/default.css">
+
+<style>
+/* ============================ base ============================ */
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  padding-top: 46px; /* room for fixed variant nav */
+  font-family: var(--font-sans);
+  background: var(--color-bg);
+  color: var(--color-text);
+  -webkit-font-smoothing: antialiased;
+}
+a { color: inherit; text-decoration: none; }
+.wrap { max-width: 1240px; margin: 0 auto; padding: 0 clamp(20px, 5vw, 64px); }
+
+/* fluid display type helpers */
+.serif { font-family: var(--font-serif); }
+.mono  { font-family: var(--font-mono); }
+.kicker {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+.pill {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 13px 22px; border-radius: var(--radius-full);
+  font-weight: 500; font-size: var(--text-sm);
+  background: var(--color-ink); color: var(--color-ink-text);
+  border: 1px solid var(--color-ink);
+  transition: transform .25s var(--ease), opacity .25s var(--ease);
+  cursor: pointer;
+}
+.pill:hover { transform: translateY(-2px); }
+.pill.ghost { background: transparent; color: var(--color-text); border-color: var(--color-border); }
+
+/* generic site header inside variants */
+.site-head {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: clamp(18px, 3vw, 30px) 0;
+}
+.site-head nav { display: flex; gap: clamp(16px, 2.4vw, 34px); align-items: center; }
+.site-head nav a { font-size: var(--text-sm); color: var(--color-text-muted); transition: color .2s; }
+.site-head nav a:hover { color: var(--color-text); }
+.logo-text { font-family: var(--font-serif); font-weight: 900; font-size: var(--text-xl); letter-spacing: -0.02em; }
+@media (max-width: 720px) {
+  .site-head nav .nav-secondary { display: none; }
+}
+
+/* ===================================================================
+   VARIANT A — Light Editorial (latentworlds-inspired) + cursor robot
+   =================================================================== */
+.variant-a .heroA {
+  display: grid; grid-template-columns: 1.05fr 0.95fr; gap: clamp(24px, 4vw, 56px);
+  align-items: center; padding: clamp(36px, 7vw, 96px) 0 clamp(48px, 8vw, 110px);
+}
+.variant-a h1 {
+  font-family: var(--font-serif); font-weight: 400;
+  font-size: var(--display); line-height: 1.02; letter-spacing: -0.02em;
+  margin: 0 0 var(--space-6);
+}
+.variant-a h1 em { font-style: italic; }
+.variant-a .lede { font-size: var(--text-xl); line-height: 1.5; color: var(--color-text-muted); max-width: 30ch; margin: 0 0 var(--space-8); }
+.variant-a .cta-row { display: flex; gap: 12px; flex-wrap: wrap; }
+.robot-stage { position: relative; aspect-ratio: 1 / 1; width: 100%; }
+.robot-stage svg { width: 100%; height: 100%; overflow: visible; }
+.robot-stage .grid-line { stroke: var(--color-grid); stroke-width: 1; }
+.robot-stage .arm { stroke: var(--color-text); stroke-width: 2.4; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+.robot-stage .arm-fill { fill: var(--color-surface); stroke: var(--color-text); stroke-width: 2.4; }
+.robot-stage .joint { fill: var(--color-bg); stroke: var(--color-text); stroke-width: 2.4; }
+.robot-stage .accent-dot { fill: var(--color-accent); }
+.cursor-hint { position: absolute; bottom: 4px; left: 0; }
+.variant-a .bets-peek {
+  border-top: 1px solid var(--color-border); padding: clamp(24px,4vw,40px) 0 clamp(40px,7vw,90px);
+  display: grid; grid-template-columns: 200px 1fr; gap: clamp(16px,3vw,48px);
+}
+.variant-a .bets-peek h2 { font-family: var(--font-serif); font-weight: 400; font-size: var(--text-2xl); margin: 0; }
+.variant-a .bet { display: flex; gap: 18px; padding: 18px 0; border-bottom: 1px solid var(--color-border); }
+.variant-a .bet .num { font-family: var(--font-mono); color: var(--color-accent); font-size: var(--text-sm); padding-top: 4px; }
+.variant-a .bet p { margin: 0; font-size: var(--text-lg); line-height: 1.5; max-width: 60ch; }
+@media (max-width: 860px) {
+  .variant-a .heroA { grid-template-columns: 1fr; }
+  .robot-stage { max-width: 420px; margin: 8px auto 0; }
+  .variant-a .bets-peek { grid-template-columns: 1fr; }
+}
+
+/* ===================================================================
+   VARIANT B — Dark Cinematic-Technical (provigen / eka-inspired)
+   =================================================================== */
+.scope-dark {
+  --color-bg: #0a0b0d; --color-surface: #131519; --color-border: rgba(255,255,255,0.13);
+  --color-text: #f3f1ea; --color-text-muted: #908d83; --color-ink: #f3f1ea;
+  --color-ink-text: #0a0b0d; --color-grid: rgba(255,255,255,0.09);
+  background: var(--color-bg); color: var(--color-text);
+}
+.variant-b .heroB {
+  position: relative; min-height: 84vh; display: flex; flex-direction: column; justify-content: flex-end;
+  padding: clamp(40px,7vw,90px) 0 clamp(28px,5vw,56px);
+  background:
+    radial-gradient(120% 90% at 70% 10%, rgba(214,73,46,0.10), transparent 60%),
+    linear-gradient(180deg, #0a0b0d 0%, #0e1013 100%);
+}
+.variant-b .blueprint {
+  position: absolute; inset: 0; opacity: .5; pointer-events: none;
+  background-image:
+    linear-gradient(var(--color-grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--color-grid) 1px, transparent 1px);
+  background-size: 64px 64px; mask-image: radial-gradient(120% 80% at 60% 30%, #000, transparent 75%);
+}
+.variant-b .media-zone {
+  position: absolute; top: clamp(70px,10vw,120px); right: 0; width: min(46%, 560px); aspect-ratio: 16/11;
+  border: 1px solid var(--color-border); border-radius: var(--radius-md);
+  display: flex; align-items: center; justify-content: center; color: var(--color-text-muted);
+  font-family: var(--font-mono); font-size: var(--text-xs); letter-spacing: .14em; text-align: center;
+  background: repeating-linear-gradient(135deg, rgba(255,255,255,.02) 0 12px, transparent 12px 24px);
+}
+.variant-b .heroB-content { position: relative; z-index: 2; }
+.variant-b h1 {
+  font-family: var(--font-sans); font-weight: 700; font-size: var(--display);
+  line-height: 1.0; letter-spacing: -0.025em; margin: 18px 0 var(--space-6); max-width: 16ch;
+}
+.variant-b h1 em { font-family: var(--font-serif); font-style: italic; font-weight: 300; }
+.variant-b .lede { font-size: var(--text-lg); color: var(--color-text-muted); max-width: 46ch; margin: 0 0 var(--space-8); line-height: 1.55; }
+.variant-b .cta-row { display: flex; gap: 12px; flex-wrap: wrap; }
+.variant-b .panels { display: grid; grid-template-columns: repeat(3,1fr); gap: 14px; margin-top: clamp(32px,5vw,64px); }
+.variant-b .panel {
+  border: 1px solid var(--color-border); border-radius: var(--radius-md); padding: 18px;
+  background: rgba(255,255,255,0.02); min-height: 120px; display: flex; flex-direction: column; justify-content: space-between;
+}
+.variant-b .panel .pn { font-family: var(--font-mono); font-size: var(--text-xs); color: var(--color-accent); }
+.variant-b .panel .pl { font-family: var(--font-mono); font-size: var(--text-xs); letter-spacing: .14em; color: var(--color-text-muted); }
+.variant-b .panel h3 { font-family: var(--font-serif); font-weight: 400; font-size: var(--text-xl); margin: 8px 0 0; }
+@media (max-width: 860px) {
+  .variant-b .media-zone { position: relative; top: 0; width: 100%; margin-bottom: 28px; }
+  .variant-b .heroB { min-height: auto; }
+  .variant-b .panels { grid-template-columns: 1fr; }
+}
+
+/* ===================================================================
+   VARIANT C — Manifesto Minimal (20n-inspired)
+   =================================================================== */
+.variant-c { min-height: 92vh; display: flex; flex-direction: column; }
+.variant-c .topbar { display: flex; justify-content: space-between; align-items: center; padding: 26px 0; }
+.variant-c .topbar .links { display: flex; gap: 26px; }
+.variant-c .topbar .links a { font-family: var(--font-mono); font-size: var(--text-xs); letter-spacing: .12em; text-transform: uppercase; color: var(--color-text-muted); }
+.variant-c .stage { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: clamp(30px,8vh,90px) 0; }
+.variant-c .mark { width: clamp(96px, 14vw, 168px); height: auto; margin-bottom: clamp(28px,5vw,56px); }
+.variant-c .mark .ring { fill: none; stroke: var(--color-text); stroke-width: 5; }
+.variant-c .mark .arc { fill: none; stroke: var(--color-text); stroke-width: 5; stroke-linecap: round; }
+.variant-c .mark .seed { fill: var(--color-accent); }
+.variant-c .thesis {
+  font-family: var(--font-mono); font-size: clamp(0.95rem, 0.85rem + 0.6vw, 1.18rem);
+  line-height: 2.0; max-width: 64ch; margin: 0 auto; color: var(--color-text);
+}
+.variant-c .thesis .dim { color: var(--color-text-muted); }
+.variant-c .scroll-cue { margin: clamp(32px,6vw,64px) auto 0; width: 34px; height: 5px; border-radius: 3px; background: var(--color-text-muted); opacity:.5; }
+.variant-c .name-tag { font-family: var(--font-serif); font-weight: 900; font-size: var(--text-lg); letter-spacing: -0.02em; }
+
+/* placeholder-copy note chip */
+.ph-note {
+  display:inline-block; font-family: var(--font-mono); font-size: 10px; letter-spacing:.1em;
+  text-transform: uppercase; color: var(--color-text-muted); border:1px dashed var(--color-border);
+  padding:3px 8px; border-radius: 4px; margin-bottom: 16px;
+}
+
+/* ===================== variant nav (fixed top) ===================== */
+#variant-nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 9998;
+  background: #1b1b1a; border-bottom: 1px solid #000; padding: 7px 12px;
+  display: flex; gap: 6px; font-family: system-ui, sans-serif; align-items: center;
+}
+#variant-nav .label { color: #8a8a86; font-size: 11px; margin-right: 6px; }
+.variant-tab {
+  background: transparent; color: #cfcfca; border: 1px solid #3a3a38; border-radius: 6px;
+  padding: 5px 11px; font-size: 12px; cursor: pointer; transition: all .15s;
+}
+.variant-tab:hover { border-color: #6a6a66; color: #fff; }
+.variant-tab.active { background: #f3f1ea; color: #111; border-color: #f3f1ea; font-weight: 600; }
+
+/* ===================== sketch toolbar (bottom-right) ===================== */
+#sketch-tools {
+  position: fixed; bottom: 12px; right: 12px; z-index: 9999; font-family: system-ui;
+  font-size: 12px; background: rgba(0,0,0,0.78); color: #fff; padding: 8px 10px;
+  border-radius: 8px; opacity: 0.35; transition: opacity .2s; display: flex; gap: 8px; align-items: center;
+}
+#sketch-tools:hover { opacity: 1; }
+#sketch-tools button, #sketch-tools select { font-size: 11px; padding: 3px 7px; border-radius: 5px; border: 1px solid #555; background: #222; color: #fff; cursor: pointer; }
+#sketch-tools .vp.active { background: #fff; color: #000; }
+
+/* viewport simulation */
+.vp-frame { transition: max-width .3s var(--ease); margin: 0 auto; }
+.variant { display: none; }
+.variant.active { display: block; }
+</style>
+</head>
+<body>
+
+<!-- ───────────────── Variant nav ───────────────── -->
+<div id="variant-nav">
+  <span class="label">Sketch 001 · Home / Hero</span>
+  <button class="variant-tab" onclick="showVariant('a', this)">A · Light Editorial</button>
+  <button class="variant-tab active" onclick="showVariant('b', this)">B · Dark Cinematic ★ Selected</button>
+  <button class="variant-tab" onclick="showVariant('c', this)">C · Manifesto Minimal</button>
+</div>
+
+<div class="vp-frame" id="vpFrame">
+
+<!-- ════════════════ VARIANT A ════════════════ -->
+<section id="variant-a" class="variant variant-a">
+  <div class="wrap">
+    <header class="site-head">
+      <span class="logo-text">Chandran</span>
+      <nav>
+        <a class="nav-secondary" href="#">Work</a>
+        <a class="nav-secondary" href="#">Journey</a>
+        <a class="nav-secondary" href="#">About</a>
+        <a class="pill" href="#">Get in touch</a>
+      </nav>
+    </header>
+
+    <div class="heroA">
+      <div>
+        <span class="ph-note">Placeholder copy — react to the design, not the words</span>
+        <h1>Building the layer between <em>intelligence</em> and the physical world.</h1>
+        <p class="lede">Engineer &amp; researcher working on embodied systems — robots that learn to act in the messy, unscripted real world.</p>
+        <div class="cta-row">
+          <a class="pill" href="#">See the work →</a>
+          <a class="pill ghost" href="#">Read the thesis</a>
+        </div>
+      </div>
+
+      <div class="robot-stage" id="robotStage" aria-hidden="true">
+        <svg viewBox="0 0 400 400" id="robotSvg">
+          <!-- perspective grid -->
+          <g opacity="0.9">
+            <line class="grid-line" x1="40"  y1="330" x2="360" y2="330"/>
+            <line class="grid-line" x1="70"  y1="360" x2="330" y2="360"/>
+            <line class="grid-line" x1="120" y1="300" x2="120" y2="360"/>
+            <line class="grid-line" x1="200" y1="296" x2="200" y2="364"/>
+            <line class="grid-line" x1="280" y1="300" x2="280" y2="360"/>
+          </g>
+          <!-- base -->
+          <rect class="arm-fill" x="168" y="300" width="64" height="26" rx="5"/>
+          <!-- link 1 -->
+          <line class="arm" x1="200" y1="306" x2="150" y2="200"/>
+          <circle class="joint" cx="200" cy="306" r="11"/>
+          <!-- link 2 -->
+          <line class="arm" x1="150" y1="200" x2="232" y2="138"/>
+          <circle class="joint" cx="150" cy="200" r="10"/>
+          <!-- wrist pivot -->
+          <circle class="joint" cx="232" cy="138" r="9"/>
+          <!-- end-effector group (rotates toward cursor) -->
+          <g id="endEffector" style="transform-box: fill-box; transform-origin: 0px 0px;">
+            <g transform="translate(232,138)">
+              <line class="arm" x1="0" y1="0" x2="40" y2="0"/>
+              <line class="arm" x1="40" y1="-12" x2="40" y2="12"/>
+              <line class="arm" x1="40" y1="-12" x2="56" y2="-12"/>
+              <line class="arm" x1="40" y1="12"  x2="56" y2="12"/>
+              <circle class="accent-dot" cx="40" cy="0" r="4"/>
+            </g>
+          </g>
+        </svg>
+        <span class="kicker cursor-hint">wireframe robot · static (cursor gimmick removed)</span>
+      </div>
+    </div>
+
+    <div class="bets-peek">
+      <h2>What I'm<br>betting on</h2>
+      <div>
+        <div class="bet"><span class="num">01</span><p>Generality beats specialization — one model that adapts, not a thousand brittle policies.</p></div>
+        <div class="bet"><span class="num">02</span><p>Robots learn fastest from the real world, not just simulation. Data from contact is the moat.</p></div>
+        <div class="bet"><span class="num">03</span><p>The hard part isn't the arm. It's the software paradigm we point at it.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════ VARIANT B ════════════════ -->
+<section id="variant-b" class="variant active variant-b">
+  <div class="scope-dark">
+    <div class="heroB">
+      <div class="blueprint"></div>
+      <div class="media-zone">[ FULL-BLEED FILM&nbsp;/&nbsp;TELEOP FOOTAGE ]</div>
+      <div class="wrap">
+        <header class="site-head">
+          <span class="logo-text">Chandran</span>
+          <nav>
+            <a class="nav-secondary mono kicker" href="#">Work</a>
+            <a class="nav-secondary mono kicker" href="#">Journey</a>
+            <a class="nav-secondary mono kicker" href="#">About</a>
+            <a class="pill" href="#">Get in touch</a>
+          </nav>
+        </header>
+        <div class="heroB-content">
+          <span class="kicker">01 — Embodied Intelligence</span>
+          <span class="ph-note" style="display:block;margin-top:14px">Placeholder copy — react to the design, not the words</span>
+          <h1>Teaching machines to <em>understand</em> the physical world.</h1>
+          <p class="lede">Engineer &amp; researcher. I build the perception, control, and learning systems that let robots act in the real world.</p>
+          <div class="cta-row">
+            <a class="pill" href="#">See the work →</a>
+            <a class="pill ghost" href="#">Read the thesis</a>
+          </div>
+          <div class="panels">
+            <div class="panel"><span class="pn">01</span><div><span class="pl">PERCEPTION</span><h3>Seeing the unscripted</h3></div></div>
+            <div class="panel"><span class="pn">02</span><div><span class="pl">CONTROL</span><h3>Acting under contact</h3></div></div>
+            <div class="panel"><span class="pn">03</span><div><span class="pl">LEARNING</span><h3>Improving from the real</h3></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════ VARIANT C ════════════════ -->
+<section id="variant-c" class="variant variant-c">
+  <div class="wrap" style="display:flex;flex-direction:column;flex:1;">
+    <div class="topbar">
+      <span class="name-tag">Chandran</span>
+      <div class="links">
+        <a href="#">Work</a><a href="#">Journey</a><a href="#">About</a><a href="#">Contact</a>
+      </div>
+    </div>
+    <div class="stage">
+      <!-- distinctive abstract monogram mark -->
+      <svg class="mark" viewBox="0 0 120 120" aria-hidden="true">
+        <circle class="ring" cx="60" cy="60" r="44"/>
+        <path class="arc" d="M60 22 A38 38 0 0 1 98 60"/>
+        <path class="arc" d="M60 38 A22 22 0 0 0 38 60"/>
+        <path class="arc" d="M60 50 A10 10 0 0 1 70 60"/>
+        <circle class="seed" cx="60" cy="60" r="5"/>
+      </svg>
+      <span class="ph-note">Placeholder thesis — react to the design, not the words</span>
+      <p class="thesis">
+        No robot on earth can walk into a room it has never seen and simply figure it out.
+        <span class="dim">Not because the hardware isn't ready — because the way we build the software is fundamentally wrong.</span>
+        I'm here to change that: general-purpose machines that learn from the physical world the way we do.
+      </p>
+      <div class="scroll-cue"></div>
+    </div>
+  </div>
+</section>
+
+</div><!-- /vp-frame -->
+
+<!-- ───────────────── Sketch toolbar ───────────────── -->
+<div id="sketch-tools">
+  <select id="themeSel" onchange="document.querySelector('link[href*=themes]').href='../themes/'+this.value+'.css'">
+    <option value="default">Theme: Default</option>
+  </select>
+  <span style="opacity:.5">view:</span>
+  <button class="vp active" data-w="full" onclick="setVp(this,'100%')">Full</button>
+  <button class="vp" data-w="768" onclick="setVp(this,'768px')">Tab</button>
+  <button class="vp" data-w="375" onclick="setVp(this,'375px')">📱375</button>
+</div>
+
+<script>
+/* variant switching */
+function showVariant(id, btn) {
+  document.querySelectorAll('.variant').forEach(v => v.classList.remove('active'));
+  document.querySelectorAll('.variant-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('variant-' + id).classList.add('active');
+  btn.classList.add('active');
+}
+/* viewport simulation */
+function setVp(btn, w) {
+  document.getElementById('vpFrame').style.maxWidth = w;
+  document.querySelectorAll('#sketch-tools .vp').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+}
+
+/* (Variant A's cursor-tracking robot was rejected & removed — the arm is now
+   static. Variant B is the selected direction.) */
+</script>
+</body>
+</html>
