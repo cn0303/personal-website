@@ -3,12 +3,13 @@ import PageLayout from '../layouts/PageLayout.astro';
 import { site } from '../data/site';
 ---
 
-<PageLayout title="Contact — Chandran Nandkumar" description="Get in touch with Chandran Nandkumar.">
+<PageLayout title="Contact - Chandran Nandkumar" description="Get in touch about robotics, embodied AI, interpretability, and technical writing.">
   <section class="container page-top contact">
     <span class="eyebrow">Contact</span>
-    <h1 class="page-title">Let’s build something<br /><em>that moves.</em></h1>
+    <h1 class="page-title">Let’s talk about<br /><em>machines that move.</em></h1>
     <p class="lead">
-      Open to collaborations, research conversations, and ambitious robotics problems. The fastest way to
+      Open to research conversations, robotics collaborations, open-source work, and technical writing
+      around embodied AI, robot learning, interpretability, and real-world autonomy. The fastest way to
       reach me is email or LinkedIn.
     </p>
 
@@ -26,6 +27,11 @@ import { site } from '../data/site';
       <a class="channel" href={site.links.github} target="_blank" rel="noopener">
         <span class="ch-label">GitHub</span>
         <span class="ch-value">View code &amp; experiments</span>
+        <span class="ch-arrow">↗</span>
+      </a>
+      <a class="channel" href={site.links.huggingface} target="_blank" rel="noopener">
+        <span class="ch-label">Hugging Face</span>
+        <span class="ch-value">Read writing &amp; robotics work</span>
         <span class="ch-arrow">↗</span>
       </a>
     </div>
