@@ -55,6 +55,7 @@ export type Project = {
   tags: string[];
   award?: string;
   link?: { label: string; href: string };
+  links?: { label: string; href: string }[];
 };
 
 // Work / case studies: evidence for the trustworthy embodied intelligence story.
@@ -74,6 +75,12 @@ export const projects: Project[] = [
       'Came away focused less on agriculture itself and more on steerable, reliable embodied AI',
     ],
     tags: ['VLA', 'Robot Learning', 'Teleoperation', 'Founder in Residence'],
+    links: [
+      {
+        label: 'LinkedIn overview',
+        href: 'https://www.linkedin.com/feed/update/urn:li:activity:7471295438575554561/',
+      },
+    ],
   },
   {
     slug: 'vla-interpretability-strawberry',
@@ -94,6 +101,12 @@ export const projects: Project[] = [
       label: 'Read the Hugging Face blog',
       href: 'https://huggingface.co/blog/cn0303/strawberry-pick-interpretability',
     },
+    links: [
+      {
+        label: 'LinkedIn post',
+        href: 'https://www.linkedin.com/feed/update/urn:li:activity:7465793781058113536/',
+      },
+    ],
   },
   {
     slug: 'qafka-twistlock-autonomy',
@@ -183,6 +196,64 @@ export const projects: Project[] = [
     ],
     tags: ['Manipulation', 'Computer Vision', 'AR/XR', 'Rapid Prototyping'],
     award: '1st place',
+    links: [
+      {
+        label: 'LinkedIn post',
+        href: 'https://www.linkedin.com/feed/update/urn:li:activity:7434728207108440064/',
+      },
+    ],
+  },
+  {
+    slug: 'hyrox-ar-coach',
+    title: 'Hyrox AR Coach',
+    year: '2025',
+    context: 'Snap x 3EALITY Hackathon',
+    oneLiner: 'An AR fitness prototype with a burpee counter, coaching flow, and final pitch.',
+    summary:
+      'At the Snap x 3EALITY hackathon, I helped build an AR fitness prototype for Hyrox-style workouts. My main contribution was the burpee counter; I also worked with the team on the settings and product flow, then pitched the prototype at the end. It is supporting evidence rather than the center of my thesis: fast, camera-facing prototypes around feedback, embodiment, and human interaction.',
+    highlights: [
+      'Built the burpee counter for the AR workout flow',
+      'Contributed to settings and product flow with the team',
+      'Pitched the final prototype',
+      'A fast rep in camera-based interaction and human-facing feedback loops',
+    ],
+    tags: ['AR/XR', 'Computer Vision', 'Human-AI Interaction', 'Rapid Prototyping'],
+    links: [
+      {
+        label: 'LinkedIn post',
+        href: 'https://www.linkedin.com/feed/update/urn:li:activity:7406096263215030272/',
+      },
+      {
+        label: 'Devpost',
+        href: 'https://devpost.com/software/hyrox-ar',
+      },
+    ],
+  },
+  {
+    slug: 'telosia-elderly-care-robot',
+    title: 'Telosia Elderly-Care Robot',
+    year: '2025',
+    context: 'Junction Hackathon / Helsinki',
+    oneLiner: 'A social robot prototype for elder-care assistance, built as a fast HRI proof of concept.',
+    summary:
+      'At Junction, I worked on an elderly-care robot concept and made the public project site. It belongs here as another rapid HRI prototype: taking a human problem, shaping the robot interaction, making the story legible, and getting a presentable demo together under hackathon constraints.',
+    highlights: [
+      'Built the public Telosia project site',
+      'Worked on the care-robot concept, pitch, and HRI framing with the team',
+      'Used the hackathon as a compressed test of robotics storytelling and prototyping',
+      'Part of the broader run of physical AI and human-robot interface projects',
+    ],
+    tags: ['HRI', 'Social Robots', 'Rapid Prototyping', 'Robotics'],
+    links: [
+      {
+        label: 'LinkedIn post',
+        href: 'https://www.linkedin.com/feed/update/urn:li:activity:7397665161005932544/',
+      },
+      {
+        label: 'Project site',
+        href: 'https://www.telosia-robotics.com/',
+      },
+    ],
   },
   {
     slug: 'unspool',
@@ -200,6 +271,12 @@ export const projects: Project[] = [
     ],
     tags: ['Voice', 'Human-AI Interaction', 'Mobile', 'Product'],
     link: { label: 'unspool.xyz', href: 'https://unspool.xyz' },
+    links: [
+      {
+        label: 'LinkedIn launch',
+        href: 'https://www.linkedin.com/feed/update/urn:li:activity:7423511496837734400/',
+      },
+    ],
   },
   {
     slug: 'early-mechatronics-writing',
