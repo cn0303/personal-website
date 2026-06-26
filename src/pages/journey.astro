@@ -11,14 +11,15 @@ const kindLabel: Record<string, string> = {
 };
 ---
 
-<PageLayout title="Journey - Chandran Nandkumar" description="The chronological arc from mechanical engineering to trustworthy embodied intelligence.">
+<PageLayout title="Journey - Chandran Nandkumar" description="A first-person arc from mechanical engineering to interpretable, steerable embodied AI.">
   <section class="container page-top page-intro">
     <span class="eyebrow">Journey</span>
-    <h1 class="page-title">How the work <em>converged.</em></h1>
+    <h1 class="page-title">How the bet <em>formed.</em></h1>
     <p class="lead">
-      Mechanical engineering became robotics. Robotics became human-robot interaction.
-      Real deployment made reliability non-negotiable. Embodied AI made interpretability
-      urgent. This is the path into trustworthy, human-supervised autonomy.
+      This is the first-person version: mechanical engineering became robotics,
+      robotics became HRI, real deployment made reliability non-negotiable, and
+      Alpine Valley turned interpretability and steerability into the thing I want
+      to go deep on.
     </p>
   </section>
 
@@ -33,6 +34,7 @@ const kindLabel: Record<string, string> = {
             <h2 class="tl-title">{e.title}</h2>
             {e.org && <p class="tl-org">{e.org}</p>}
             {e.body && <p class="tl-text">{e.body}</p>}
+            {e.link && <a class="tl-link" href={e.link.href} target="_blank" rel="noopener">{e.link.label} -></a>}
           </div>
         </li>
       ))}
@@ -64,6 +66,7 @@ const kindLabel: Record<string, string> = {
   .tl-title { font-family: var(--font-serif); font-weight: 400; font-size: clamp(1.25rem, 1rem + 0.8vw, 1.7rem); line-height: 1.2; margin: 8px 0 0; }
   .tl-org { font-family: var(--font-mono); font-size: 0.8rem; color: var(--color-text-muted); margin-top: 8px; }
   .tl-text { color: var(--color-text-muted); line-height: 1.55; margin-top: 12px; max-width: 64ch; }
+  .tl-link { display: inline-block; margin-top: 12px; font-family: var(--font-mono); font-size: 0.78rem; letter-spacing: 0.06em; color: var(--color-accent); border-bottom: 1px solid var(--color-accent); padding-bottom: 2px; }
 
   @media (max-width: 620px) {
     .tl-item { grid-template-columns: 20px 1fr; }
