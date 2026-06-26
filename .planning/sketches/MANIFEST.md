@@ -33,4 +33,4 @@ Merriweather + Satoshi.
 | # | Name | Design Question | Winner | Tags |
 |---|------|----------------|--------|------|
 | 001 | home-hero-direction | Which overall aesthetic + type system for the homepage hero? | **B · Dark Cinematic** | hero, aesthetic, typography, direction |
-| 002 | dark-hero-wordmark | How should the name/wordmark identity read in the dark direction? (larger, distinctive) | _pending_ | wordmark, identity, logo, header |
+| 002 | dark-hero-wordmark | How should the name/wordmark identity read in the dark direction? (larger, distinctive) | **W3 · CHANDRAN lockup** | wordmark, identity, logo, header |

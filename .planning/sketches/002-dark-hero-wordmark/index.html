@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sketch 002 — Dark Cinematic Hero (W3)</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700,900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../themes/default.css">
+
+<style>
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin:0; }
+body {
+  --color-bg:#0a0b0d; --color-text:#f3f1ea; --color-text-muted:#a4a196;
+  --color-border:rgba(255,255,255,0.14); --color-ink:#f3f1ea; --color-ink-text:#0a0b0d;
+  --color-grid:rgba(255,255,255,0.10); --color-accent:#d6492e;
+  font-family:var(--font-sans); background:var(--color-bg); color:var(--color-text); -webkit-font-smoothing:antialiased;
+}
+a { color:inherit; text-decoration:none; }
+
+.vp-frame { container-type: inline-size; container-name: page; margin:0 auto; transition:max-width .3s var(--ease); }
+
+/* hero fills the whole viewport, two columns: text left, cinematic visual bleeding right */
+.hero {
+  position:relative; min-height:100vh; display:grid;
+  grid-template-columns: 1.06fr 0.94fr; align-items:stretch;
+  background: radial-gradient(90% 120% at 12% 0%, rgba(214,73,46,0.10), transparent 55%), linear-gradient(180deg,#0a0b0d,#0d0f12);
+}
+
+/* ---- left: header + headline, vertically centered, generous left gutter ---- */
+.left { display:flex; flex-direction:column; padding: clamp(28px,3vw,44px) clamp(48px,6vw,120px) clamp(40px,5vh,80px) clamp(40px,5vw,110px); }
+.topbar { display:flex; align-items:center; justify-content:space-between; gap:32px; }
+.brand { font-family:var(--font-mono); font-weight:700; font-size: clamp(1.4rem,1rem+1.4vw,2.1rem); letter-spacing:.22em; }
+.nav-links { display:flex; align-items:center; gap: clamp(24px,2.4vw,44px); }
+.nav-links a.link { font-family:var(--font-mono); font-size:1rem; letter-spacing:.1em; text-transform:uppercase; color:var(--color-text-muted); transition:color .2s; white-space:nowrap; }
+.nav-links a.link:hover { color:var(--color-text); }
+.pill { display:inline-flex; align-items:center; gap:8px; padding:15px 30px; border-radius:var(--radius-full); font-weight:600; font-size:1.05rem; background:var(--color-ink); color:var(--color-ink-text); border:1px solid var(--color-ink); cursor:pointer; transition:transform .25s var(--ease); white-space:nowrap; }
+.pill:hover { transform:translateY(-2px); }
+.pill.ghost { background:transparent; color:var(--color-text); border-color:var(--color-border); }
+.menu-btn { display:none; background:transparent; border:1px solid var(--color-border); color:var(--color-text); border-radius:10px; padding:12px 15px; font-family:var(--font-mono); font-size:.85rem; letter-spacing:.12em; cursor:pointer; }
+
+.headline-block { margin-top:auto; margin-bottom:auto; max-width: 100%; }
+.kicker { font-family:var(--font-mono); font-size:.95rem; letter-spacing:.2em; text-transform:uppercase; color:var(--color-text-muted); }
+.ph-note { display:inline-block; font-family:var(--font-mono); font-size:10px; letter-spacing:.1em; text-transform:uppercase; color:var(--color-text-muted); border:1px dashed var(--color-border); padding:3px 8px; border-radius:4px; margin:14px 0; }
+h1 { font-family:var(--font-sans); font-weight:700; font-size: clamp(3rem, 1.4rem+4.4vw, 5.8rem); line-height:.98; letter-spacing:-0.03em; margin:10px 0 clamp(20px,3vh,32px); }
+h1 em { font-family:var(--font-serif); font-style:italic; font-weight:300; }
+.lede { font-size: clamp(1.15rem,.95rem+.7vw,1.5rem); color:var(--color-text-muted); max-width:42ch; line-height:1.5; margin:0 0 clamp(26px,4vh,40px); }
+.cta-row { display:flex; gap:14px; flex-wrap:wrap; }
+
+/* ---- right: full-bleed cinematic visual ---- */
+.visual { position:relative; overflow:hidden; border-left:1px solid var(--color-border);
+  background: linear-gradient(160deg,#0e1014,#08090b); }
+.visual .grid { position:absolute; inset:0; opacity:.6;
+  background-image: linear-gradient(var(--color-grid) 1px,transparent 1px), linear-gradient(90deg,var(--color-grid) 1px,transparent 1px);
+  background-size:64px 64px; mask-image: radial-gradient(120% 90% at 60% 40%, #000, transparent 80%); }
+.visual .glow { position:absolute; width:60%; height:60%; top:8%; right:-8%; border-radius:50%;
+  background: radial-gradient(circle, rgba(214,73,46,0.16), transparent 65%); filter: blur(20px); }
+.frame { position:absolute; inset: clamp(36px,5vw,84px); border:1px solid var(--color-border); border-radius:12px;
+  display:flex; align-items:center; justify-content:center; background: rgba(255,255,255,0.015); }
+.frame .corner { position:absolute; width:22px; height:22px; border:2px solid var(--color-text-muted); opacity:.6; }
+.frame .corner.tl { top:-1px; left:-1px; border-right:none; border-bottom:none; }
+.frame .corner.tr { top:-1px; right:-1px; border-left:none; border-bottom:none; }
+.frame .corner.bl { bottom:-1px; left:-1px; border-right:none; border-top:none; }
+.frame .corner.br { bottom:-1px; right:-1px; border-left:none; border-top:none; }
+.frame .label { position:absolute; bottom:18px; left:18px; font-family:var(--font-mono); font-size:.72rem; letter-spacing:.16em; color:var(--color-text-muted); }
+.frame .readout { position:absolute; top:18px; right:18px; text-align:right; font-family:var(--font-mono); font-size:.7rem; letter-spacing:.1em; color:var(--color-text-muted); line-height:1.9; }
+.frame .readout b { color:var(--color-accent); font-weight:500; }
+.arm { width:62%; height:auto; opacity:.92; }
+.arm .ln { fill:none; stroke:var(--color-text); stroke-width:3; stroke-linecap:round; stroke-linejoin:round; }
+.arm .jt { fill:#0d0f12; stroke:var(--color-text); stroke-width:3; }
+.arm .nd { fill:var(--color-accent); }
+.arm .base { fill:rgba(255,255,255,.04); stroke:var(--color-text); stroke-width:3; }
+
+/* =============== adaptiveness via container queries =============== */
+@container page (max-width: 900px) {
+  .hero { grid-template-columns: 1fr; min-height:auto; }
+  .visual { order:-1; min-height: 46vh; border-left:none; border-bottom:1px solid var(--color-border); }
+  .nav-links { display:none; }
+  .menu-btn { display:inline-block; }
+  .topbar.menu-open + .mobile-panel { display:flex; }
+  .headline-block { margin:0; padding: clamp(28px,6vh,56px) 0; }
+  h1 { font-size: clamp(2.8rem, 9vw, 4.6rem); }
+}
+.mobile-panel { display:none; flex-direction:column; gap:4px; padding-top:10px; }
+.mobile-panel a { font-family:var(--font-mono); font-size:1.15rem; text-transform:uppercase; letter-spacing:.06em; padding:13px 0; border-bottom:1px solid var(--color-border); }
+.mobile-panel .pill { margin-top:14px; align-self:flex-start; }
+@container page (max-width: 900px) { .arm { width:46%; } .visual { min-height:42vh; } }
+@container page (max-width: 520px) { .frame { inset:18px; } .arm { width:52%; } .frame .readout { font-size:.6rem; } }
+
+/* toolbar */
+#sketch-tools { position:fixed; bottom:12px; right:12px; z-index:9999; font-family:system-ui; font-size:12px; background:rgba(0,0,0,.8); color:#fff; padding:8px 10px; border-radius:8px; opacity:.4; transition:opacity .2s; display:flex; gap:8px; align-items:center; }
+#sketch-tools:hover { opacity:1; }
+#sketch-tools button { font-size:11px; padding:3px 7px; border-radius:5px; border:1px solid #555; background:#222; color:#fff; cursor:pointer; }
+#sketch-tools .vp.active { background:#fff; color:#000; }
+</style>
+</head>
+<body>
+
+<div class="vp-frame" id="vpFrame">
+  <section class="hero">
+    <!-- LEFT -->
+    <div class="left">
+      <div class="topbar" id="topbar">
+        <div class="brand">CHANDRAN</div>
+        <nav class="nav-links">
+          <a class="link" href="#">Work</a><a class="link" href="#">Journey</a><a class="link" href="#">About</a>
+          <a class="pill" href="#">Get in touch</a>
+        </nav>
+        <button class="menu-btn" onclick="document.getElementById('topbar').classList.toggle('menu-open')">☰ Menu</button>
+      </div>
+      <div class="mobile-panel">
+        <a href="#">Work</a><a href="#">Journey</a><a href="#">About</a><a class="pill" href="#">Get in touch</a>
+      </div>
+
+      <div class="headline-block">
+        <span class="kicker">01 — Embodied Intelligence</span>
+        <span class="ph-note" style="display:block">Placeholder copy — judge layout, scale &amp; balance</span>
+        <h1>Teaching machines to <em>understand</em> the physical world.</h1>
+        <p class="lede">Engineer &amp; researcher building the perception, control, and learning systems that let robots act in the real world.</p>
+        <div class="cta-row"><a class="pill" href="#">See the work →</a><a class="pill ghost" href="#">Read the thesis</a></div>
+      </div>
+    </div>
+
+    <!-- RIGHT: cinematic visual, bleeds to edge -->
+    <div class="visual">
+      <div class="grid"></div>
+      <div class="glow"></div>
+      <div class="frame">
+        <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
+        <div class="readout">PERCEPTION&nbsp;&nbsp;<b>online</b><br>TORQUE&nbsp;&nbsp;12.4 Nm<br>POLICY&nbsp;&nbsp;v2.3</div>
+        <svg class="arm" viewBox="0 0 360 340" aria-hidden="true">
+          <rect class="base" x="150" y="288" width="84" height="30" rx="6"/>
+          <line class="ln" x1="192" y1="296" x2="120" y2="178"/>
+          <line class="ln" x1="120" y1="178" x2="236" y2="104"/>
+          <line class="ln" x1="236" y1="104" x2="292" y2="120"/>
+          <line class="ln" x1="292" y1="120" x2="300" y2="146"/>
+          <line class="ln" x1="292" y1="120" x2="316" y2="112"/>
+          <circle class="jt" cx="192" cy="296" r="12"/>
+          <circle class="jt" cx="120" cy="178" r="11"/>
+          <circle class="jt" cx="236" cy="104" r="10"/>
+          <circle class="nd" cx="300" cy="146" r="5"/>
+        </svg>
+        <span class="label">[ FULL-BLEED FILM / TELEOP FOOTAGE GOES HERE ]</span>
+      </div>
+    </div>
+  </section>
+</div>
+
+<div id="sketch-tools">
+  <span style="opacity:.5">resize →</span>
+  <button class="vp active" onclick="setVp(this,'100%')">Full</button>
+  <button class="vp" onclick="setVp(this,'834px')">Tab</button>
+  <button class="vp" onclick="setVp(this,'390px')">📱390</button>
+</div>
+
+<script>
+function setVp(btn,w){ document.getElementById('vpFrame').style.maxWidth=w;
+  document.querySelectorAll('#sketch-tools .vp').forEach(b=>b.classList.remove('active')); btn.classList.add('active'); }
+</script>
+</body>
+</html>
