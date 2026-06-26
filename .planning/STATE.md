@@ -12,7 +12,7 @@ See: .planning/PROJECT.md (updated 2026-06-26)
 Phase: 1 of 5 (Direction & Narrative)
 Plan: 0 of TBD in current phase
 Status: Ready to plan
-Last activity: 2026-06-26 - Completed quick task 260627-0hi: Rewrite website copy around trustworthy embodied intelligence positioning while preserving existing design
+Last activity: 2026-06-26 - Completed quick task 260627-1o5: Second copy pass integrating steerability, source links, first-person journey, and role/bet framing
 
 Progress: [░░░░░░░░░░] 0%
 
@@ -54,7 +54,7 @@ None yet.
 ### Blockers/Concerns
 
 - Owner reference sites/screenshots pending — gating input for Phase 1 design direction.
-- Narrative copy first pass drafted around trustworthy embodied intelligence — owner review/conversation needed before final content freeze.
+- Narrative copy second pass drafted around interpretability + steerability + reliability — owner review/conversation needed before final content freeze.
 - Custom domain string TBD — needed for DNS + canonical URLs at deploy (Phase 5).
 - Hosting ToS unverified — confirm Cloudflare/Netlify/Vercel terms before final host choice.
 
@@ -63,6 +63,7 @@ None yet.
 | # | Description | Date | Commit | Directory |
 |---|-------------|------|--------|-----------|
 | 260627-0hi | Rewrite website copy around trustworthy embodied intelligence positioning while preserving existing design | 2026-06-26 | d519da4 | [260627-0hi-rewrite-website-copy-around-trustworthy-](./quick/260627-0hi-rewrite-website-copy-around-trustworthy-/) |
+| 260627-1o5 | Second copy pass: integrate steerability, source links, first-person journey, and role/bet framing | 2026-06-26 | bcb69a6 | [260627-1o5-second-copy-pass-integrate-steerability-](./quick/260627-1o5-second-copy-pass-integrate-steerability-/) |
 
 ## Deferred Items
 
