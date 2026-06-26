@@ -12,7 +12,7 @@ See: .planning/PROJECT.md (updated 2026-06-26)
 Phase: 1 of 5 (Direction & Narrative)
 Plan: 0 of TBD in current phase
 Status: Ready to plan
-Last activity: 2026-06-26 — Roadmap created (5 coarse phases, 24/24 requirements mapped)
+Last activity: 2026-06-26 - Completed quick task 260627-0hi: Rewrite website copy around trustworthy embodied intelligence positioning while preserving existing design
 
 Progress: [░░░░░░░░░░] 0%
 
@@ -54,9 +54,15 @@ None yet.
 ### Blockers/Concerns
 
 - Owner reference sites/screenshots pending — gating input for Phase 1 design direction.
-- Narrative copy ("bets", manifesto, timeline) undrafted — owner must author in Phase 1.
+- Narrative copy first pass drafted around trustworthy embodied intelligence — owner review/conversation needed before final content freeze.
 - Custom domain string TBD — needed for DNS + canonical URLs at deploy (Phase 5).
 - Hosting ToS unverified — confirm Cloudflare/Netlify/Vercel terms before final host choice.
+
+### Quick Tasks Completed
+
+| # | Description | Date | Commit | Directory |
+|---|-------------|------|--------|-----------|
+| 260627-0hi | Rewrite website copy around trustworthy embodied intelligence positioning while preserving existing design | 2026-06-26 | d519da4 | [260627-0hi-rewrite-website-copy-around-trustworthy-](./quick/260627-0hi-rewrite-website-copy-around-trustworthy-/) |
 
 ## Deferred Items
 
