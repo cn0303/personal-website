@@ -1,0 +1,23 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import SiteHeader from '../components/SiteHeader.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+
+interface Props { title?: string; description?: string; }
+const { title, description } = Astro.props;
+---
+
+<BaseLayout title={title} description={description}>
+  <div class="container header-wrap">
+    <SiteHeader />
+  </div>
+  <main>
+    <slot />
+  </main>
+  <SiteFooter />
+</BaseLayout>
+
+<style>
+  .header-wrap { padding-top: clamp(24px, 3vw, 40px); }
+  main { display: block; }
+</style>

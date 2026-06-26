@@ -1,145 +1,142 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import SiteHeader from '../components/SiteHeader.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import { site, bets, projects } from '../data/site';
+
+const featured = projects.slice(0, 3);
 ---
 
 <BaseLayout>
+  <!-- ───────── HERO ───────── -->
   <section class="hero">
-    <!-- LEFT: header + headline -->
     <div class="left">
       <SiteHeader />
-
       <div class="headline-block">
-        <span class="kicker">01 — Embodied Intelligence</span>
-        <!-- TODO (Phase 1 / content): replace with Chandran's real manifesto + bets copy -->
+        <span class="kicker">Interpretable Embodied AI</span>
         <h1>Teaching machines to <em>understand</em> the physical world.</h1>
-        <p class="lede">
-          Engineer &amp; researcher building the perception, control, and learning systems
-          that let robots act in the real world.
-        </p>
+        <p class="lede">{site.lede}</p>
         <div class="cta-row">
           <a class="pill" href="/work">See the work →</a>
-          <a class="pill ghost" href="/thesis">Read the thesis</a>
+          <a class="pill ghost" href="/about">About me</a>
         </div>
       </div>
     </div>
 
-    <!-- RIGHT: cinematic visual, bleeds to edge.
-         TODO (asset phase): replace placeholder with Chandran's teleop/field footage. -->
+    <!-- clean cinematic media slot (no decorative robot) — holds real footage -->
     <div class="visual" aria-hidden="true">
       <div class="grid"></div>
       <div class="glow"></div>
       <div class="frame">
         <span class="corner tl"></span><span class="corner tr"></span>
         <span class="corner bl"></span><span class="corner br"></span>
-        <div class="readout">PERCEPTION&nbsp;&nbsp;<b>online</b><br />TORQUE&nbsp;&nbsp;12.4 Nm<br />POLICY&nbsp;&nbsp;v2.3</div>
-        <svg class="arm" viewBox="0 0 360 340">
-          <rect class="base" x="150" y="288" width="84" height="30" rx="6"></rect>
-          <line class="ln" x1="192" y1="296" x2="120" y2="178"></line>
-          <line class="ln" x1="120" y1="178" x2="236" y2="104"></line>
-          <line class="ln" x1="236" y1="104" x2="292" y2="120"></line>
-          <line class="ln" x1="292" y1="120" x2="300" y2="146"></line>
-          <line class="ln" x1="292" y1="120" x2="316" y2="112"></line>
-          <circle class="jt" cx="192" cy="296" r="12"></circle>
-          <circle class="jt" cx="120" cy="178" r="11"></circle>
-          <circle class="jt" cx="236" cy="104" r="10"></circle>
-          <circle class="nd" cx="300" cy="146" r="5"></circle>
-        </svg>
-        <span class="label">[ FULL-BLEED FILM / TELEOP FOOTAGE GOES HERE ]</span>
+        <span class="timecode">REEL · 02:14</span>
+        <div class="slot-caption">
+          <span class="sc-kick">Field footage</span>
+          <span class="sc-main">Autonomous strawberry harvest</span>
+          <span class="sc-sub">&gt;90% success · Alpine Valley, Vienna</span>
+        </div>
+        <div class="scrubber"><span></span></div>
       </div>
     </div>
   </section>
+
+  <!-- ───────── BETS ───────── -->
+  <section class="section bets">
+    <div class="container">
+      <span class="eyebrow">What I'm betting on</span>
+      <div class="bets-grid">
+        {bets.map((b) => (
+          <div class="bet">
+            <span class="bet-n">{b.n}</span>
+            <h2 class="bet-title">{b.title}</h2>
+            <p class="bet-body">{b.body}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ───────── SELECTED WORK ───────── -->
+  <section class="section work-preview">
+    <div class="container">
+      <div class="sec-head">
+        <div>
+          <span class="eyebrow">Selected work</span>
+          <h2 class="section-title">Robots, research, and things I’ve shipped.</h2>
+        </div>
+        <a class="pill ghost" href="/work">All work →</a>
+      </div>
+      <div class="cards-3">
+        {featured.map((p) => <ProjectCard project={p} />)}
+      </div>
+    </div>
+  </section>
+
+  <SiteFooter />
 </BaseLayout>
 
 <style>
+  /* ───────── hero ───────── */
   .hero {
-    position: relative;
-    min-height: 100vh;
-    display: grid;
-    grid-template-columns: 1.06fr 0.94fr;
-    align-items: stretch;
+    position: relative; min-height: 100vh; display: grid;
+    grid-template-columns: 1.06fr 0.94fr; align-items: stretch;
     background:
       radial-gradient(90% 120% at 12% 0%, rgba(214, 73, 46, 0.1), transparent 55%),
       linear-gradient(180deg, #0a0b0d, #0d0f12);
   }
-
-  /* left column */
-  .left {
-    display: flex;
-    flex-direction: column;
-    padding: clamp(28px, 3vw, 44px) clamp(48px, 6vw, 120px) clamp(40px, 5vh, 80px) var(--gutter);
-  }
+  .left { display: flex; flex-direction: column; padding: clamp(28px, 3vw, 44px) clamp(48px, 6vw, 120px) clamp(40px, 5vh, 80px) var(--gutter); }
   .headline-block { margin-top: auto; margin-bottom: auto; }
-  h1 {
-    font-family: var(--font-sans);
-    font-weight: 700;
-    font-size: var(--display);
-    line-height: 0.98;
-    letter-spacing: -0.03em;
-    margin: 14px 0 clamp(20px, 3vh, 32px);
-  }
+  h1 { font-family: var(--font-sans); font-weight: 700; font-size: var(--display); line-height: 0.98; letter-spacing: -0.03em; margin: 14px 0 clamp(20px, 3vh, 32px); }
   h1 em { font-family: var(--font-serif); font-style: italic; font-weight: 300; }
-  .lede {
-    font-size: var(--text-lg);
-    color: var(--color-text-muted);
-    max-width: 42ch;
-    line-height: 1.5;
-    margin-bottom: clamp(26px, 4vh, 40px);
-  }
+  .lede { font-size: var(--text-lg); color: var(--color-text-muted); max-width: 44ch; line-height: 1.5; margin-bottom: clamp(26px, 4vh, 40px); }
   .cta-row { display: flex; gap: 14px; flex-wrap: wrap; }
 
-  /* right cinematic visual */
-  .visual {
-    position: relative;
-    overflow: hidden;
-    border-left: 1px solid var(--color-border);
-    background: linear-gradient(160deg, #0e1014, #08090b);
-  }
-  .grid {
-    position: absolute; inset: 0; opacity: 0.6;
-    background-image:
-      linear-gradient(var(--color-grid) 1px, transparent 1px),
-      linear-gradient(90deg, var(--color-grid) 1px, transparent 1px);
-    background-size: 64px 64px;
-    mask-image: radial-gradient(120% 90% at 60% 40%, #000, transparent 80%);
-  }
-  .glow {
-    position: absolute; width: 60%; height: 60%; top: 8%; right: -8%; border-radius: 50%;
-    background: radial-gradient(circle, rgba(214, 73, 46, 0.16), transparent 65%);
-    filter: blur(20px);
-  }
-  .frame {
-    position: absolute; inset: clamp(36px, 5vw, 84px);
-    border: 1px solid var(--color-border); border-radius: 12px;
-    display: flex; align-items: center; justify-content: center;
-    background: rgba(255, 255, 255, 0.015);
-  }
+  /* cinematic media slot */
+  .visual { position: relative; overflow: hidden; border-left: 1px solid var(--color-border); background: linear-gradient(160deg, #0e1014, #08090b); }
+  .grid { position: absolute; inset: 0; opacity: 0.55; background-image: linear-gradient(var(--color-grid) 1px, transparent 1px), linear-gradient(90deg, var(--color-grid) 1px, transparent 1px); background-size: 64px 64px; mask-image: radial-gradient(120% 90% at 60% 45%, #000, transparent 80%); }
+  .glow { position: absolute; width: 62%; height: 62%; top: 10%; right: -10%; border-radius: 50%; background: radial-gradient(circle, rgba(214, 73, 46, 0.16), transparent 65%); filter: blur(22px); }
+  .frame { position: absolute; inset: clamp(36px, 5vw, 84px); border: 1px solid var(--color-border); border-radius: 12px; background: rgba(255, 255, 255, 0.015); }
   .corner { position: absolute; width: 22px; height: 22px; border: 2px solid var(--color-text-muted); opacity: 0.6; }
   .corner.tl { top: -1px; left: -1px; border-right: none; border-bottom: none; }
   .corner.tr { top: -1px; right: -1px; border-left: none; border-bottom: none; }
   .corner.bl { bottom: -1px; left: -1px; border-right: none; border-top: none; }
   .corner.br { bottom: -1px; right: -1px; border-left: none; border-top: none; }
-  .label { position: absolute; bottom: 18px; left: 18px; font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.16em; color: var(--color-text-muted); }
-  .readout { position: absolute; top: 18px; right: 18px; text-align: right; font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.1em; color: var(--color-text-muted); line-height: 1.9; }
-  .readout b { color: var(--color-accent); font-weight: 500; }
-  .arm { width: 62%; height: auto; opacity: 0.92; }
-  .arm .ln { fill: none; stroke: var(--color-text); stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
-  .arm .jt { fill: #0d0f12; stroke: var(--color-text); stroke-width: 3; }
-  .arm .nd { fill: var(--color-accent); }
-  .arm .base { fill: rgba(255, 255, 255, 0.04); stroke: var(--color-text); stroke-width: 3; }
+  .timecode { position: absolute; top: 18px; right: 18px; font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.14em; color: var(--color-text-muted); }
+  .slot-caption { position: absolute; left: 28px; bottom: 44px; display: flex; flex-direction: column; gap: 8px; }
+  .sc-kick { font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--color-accent); }
+  .sc-main { font-family: var(--font-serif); font-size: clamp(1.2rem, 0.9rem + 1vw, 1.7rem); }
+  .sc-sub { font-family: var(--font-mono); font-size: 0.74rem; letter-spacing: 0.06em; color: var(--color-text-muted); }
+  .scrubber { position: absolute; left: 28px; right: 28px; bottom: 24px; height: 2px; background: var(--color-border); }
+  .scrubber span { display: block; width: 36%; height: 100%; background: var(--color-text-muted); }
+
+  /* ───────── bets ───────── */
+  .bets-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(24px, 3vw, 56px); margin-top: 12px; }
+  .bet-n { font-family: var(--font-mono); font-size: var(--text-sm); color: var(--color-accent); letter-spacing: 0.1em; }
+  .bet-title { font-family: var(--font-serif); font-weight: 400; font-size: clamp(1.4rem, 1.1rem + 1vw, 2rem); margin: 14px 0 14px; line-height: 1.15; }
+  .bet-body { color: var(--color-text-muted); line-height: 1.6; }
+
+  /* ───────── work preview ───────── */
+  .sec-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; margin-bottom: clamp(32px, 4vw, 56px); }
+  .cards-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
 
   /* ───────── responsive ───────── */
+  @media (max-width: 980px) {
+    .bets-grid { grid-template-columns: 1fr; gap: 32px; }
+    .cards-3 { grid-template-columns: 1fr; }
+  }
   @media (max-width: 900px) {
     .hero { grid-template-columns: 1fr; min-height: auto; }
-    .visual { order: -1; min-height: 42vh; border-left: none; border-bottom: 1px solid var(--color-border); }
-    .arm { width: 46%; }
+    .visual { order: -1; min-height: 44vh; border-left: none; border-bottom: 1px solid var(--color-border); }
     .left { padding-top: clamp(24px, 4vh, 40px); }
     .headline-block { margin: 0; padding: clamp(28px, 6vh, 56px) 0; }
     h1 { font-size: clamp(2.8rem, 9vw, 4.6rem); }
+    .sec-head { flex-direction: column; align-items: flex-start; }
   }
   @media (max-width: 520px) {
     .frame { inset: 18px; }
-    .arm { width: 52%; }
-    .readout { font-size: 0.6rem; }
+    .slot-caption { left: 18px; bottom: 38px; }
+    .scrubber { left: 18px; right: 18px; }
   }
 </style>

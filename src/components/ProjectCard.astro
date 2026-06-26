@@ -1,0 +1,60 @@
+---
+import type { Project } from '../data/site';
+interface Props { project: Project; detailed?: boolean; }
+const { project, detailed = false } = Astro.props;
+---
+
+<article class:list={['proj-card', { detailed }]}>
+  <div class="pc-top">
+    <span class="pc-year">{project.year}</span>
+    {project.award && <span class="pc-award">★ {project.award}</span>}
+  </div>
+
+  <h3 class="pc-title">{project.title}</h3>
+  <p class="pc-context">{project.context}</p>
+  <p class="pc-one">{project.oneLiner}</p>
+
+  {detailed && (
+    <>
+      <p class="pc-summary">{project.summary}</p>
+      <ul class="pc-highlights">
+        {project.highlights.map((h) => <li>{h}</li>)}
+      </ul>
+      {project.link && (
+        <a class="pc-link" href={project.link.href} target="_blank" rel="noopener">{project.link.label} ↗</a>
+      )}
+    </>
+  )}
+
+  <div class="tag-row pc-tags">
+    {project.tags.map((t) => <span class="tag">{t}</span>)}
+  </div>
+
+  {!detailed && <a class="pc-stretch" href="/work" aria-label={`Read about ${project.title}`}></a>}
+</article>
+
+<style>
+  .proj-card {
+    position: relative;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: clamp(22px, 2.4vw, 34px);
+    background: var(--color-surface);
+    transition: border-color 0.25s var(--ease), transform 0.25s var(--ease);
+    height: 100%;
+  }
+  .proj-card:not(.detailed):hover { border-color: var(--color-text-muted); transform: translateY(-3px); }
+  .pc-top { display: flex; align-items: center; gap: 12px; justify-content: space-between; }
+  .pc-year { font-family: var(--font-mono); font-size: var(--text-sm); color: var(--color-text-muted); letter-spacing: 0.08em; }
+  .pc-award { font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.06em; color: var(--color-accent); }
+  .pc-title { font-family: var(--font-serif); font-weight: 400; font-size: clamp(1.5rem, 1.1rem + 1.1vw, 2.1rem); line-height: 1.12; margin-top: 16px; }
+  .pc-context { font-family: var(--font-mono); font-size: 0.78rem; letter-spacing: 0.04em; color: var(--color-text-muted); margin-top: 10px; }
+  .pc-one { font-size: var(--text-lg); margin-top: 14px; line-height: 1.45; }
+  .pc-summary { color: var(--color-text-muted); margin-top: 16px; line-height: 1.6; max-width: 70ch; }
+  .pc-highlights { margin-top: 16px; padding-left: 0; list-style: none; display: grid; gap: 10px; max-width: 70ch; }
+  .pc-highlights li { position: relative; padding-left: 22px; color: var(--color-text); line-height: 1.45; }
+  .pc-highlights li::before { content: '→'; position: absolute; left: 0; color: var(--color-accent); font-family: var(--font-mono); }
+  .pc-link { display: inline-block; margin-top: 18px; font-family: var(--font-mono); font-size: 0.85rem; color: var(--color-text); border-bottom: 1px solid var(--color-accent); padding-bottom: 2px; }
+  .pc-tags { margin-top: 22px; }
+  .pc-stretch { position: absolute; inset: 0; border-radius: var(--radius-lg); }
+</style>

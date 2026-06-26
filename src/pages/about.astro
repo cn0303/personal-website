@@ -1,0 +1,93 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+import { site, skills, education } from '../data/site';
+---
+
+<PageLayout title="About — Chandran Nandkumar" description="Robotics and AI engineer — TU Delft, Qafka Robotics, embodied AI.">
+  <section class="container page-top about-hero">
+    <div>
+      <span class="eyebrow">About</span>
+      <h1 class="page-title">Engineer, researcher,<br /><em>relentless builder.</em></h1>
+    </div>
+    <div class="bio">
+      <p>
+        I’m a robotics and AI engineer with a master’s from <strong>TU Delft</strong> and a bachelor’s in
+        mechanical engineering (minor in management) from <strong>NITK Surathkal</strong>. I currently build
+        production robotics at <strong>Qafka Robotics</strong> in the Netherlands, and most recently spent a
+        residency with <strong>Alpine Valley</strong> in Vienna working on autonomous agritech.
+      </p>
+      <p>
+        My work sits at the intersection of engineering depth and the human side of technology. I care about
+        <strong> interpretable embodied AI</strong>, human–robot interaction, and control — and about building
+        systems that move us toward a better tomorrow, not just impressive demos.
+      </p>
+      <p>
+        Combining engineering knowledge with communication, management, and a stubborn bias toward shipping
+        makes me versatile across a wide range of projects — from training vision-language-action policies to
+        launching consumer apps to winning robotics hackathons across Europe.
+      </p>
+    </div>
+  </section>
+
+  <section class="section container kit">
+    <div class="kit-col">
+      <span class="eyebrow">Focus</span>
+      <ul class="kit-list">
+        {skills.focus.map((f) => <li>{f}</li>)}
+      </ul>
+    </div>
+    <div class="kit-col">
+      <span class="eyebrow">Software & platforms</span>
+      <div class="tag-row">
+        {skills.software.map((s) => <span class="tag">{s}</span>)}
+      </div>
+    </div>
+    <div class="kit-col">
+      <span class="eyebrow">Strengths</span>
+      <ul class="kit-list">
+        {skills.competencies.map((c) => <li>{c}</li>)}
+      </ul>
+    </div>
+  </section>
+
+  <section class="section container edu">
+    <span class="eyebrow">Education</span>
+    {education.map((e) => (
+      <div class="edu-row">
+        <h2 class="edu-school">{e.school}</h2>
+        <p class="edu-degree">{e.degree}</p>
+        <span class="edu-years">{e.years}</span>
+      </div>
+    ))}
+  </section>
+
+  <section class="section container cta-band">
+    <h2 class="section-title">Want to build something together?</h2>
+    <a class="pill" href="/contact">Get in touch →</a>
+  </section>
+</PageLayout>
+
+<style>
+  .about-hero { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(28px, 5vw, 80px); align-items: start; padding-bottom: clamp(40px, 6vh, 80px); }
+  .page-title { margin-top: 18px; }
+  .bio p { color: var(--color-text-muted); line-height: 1.7; margin-bottom: 18px; font-size: var(--text-lg); }
+  .bio strong { color: var(--color-text); font-weight: 500; }
+
+  .kit { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(28px, 4vw, 64px); }
+  .kit-list { list-style: none; padding: 0; margin: 0; display: grid; gap: 12px; }
+  .kit-list li { padding-left: 20px; position: relative; line-height: 1.4; }
+  .kit-list li::before { content: '—'; position: absolute; left: 0; color: var(--color-accent); }
+
+  .edu-row { padding: 22px 0; border-bottom: 1px solid var(--color-border); }
+  .edu-row:first-of-type { border-top: 1px solid var(--color-border); margin-top: 24px; }
+  .edu-school { font-family: var(--font-serif); font-weight: 400; font-size: clamp(1.3rem, 1rem + 1vw, 1.9rem); }
+  .edu-degree { color: var(--color-text-muted); margin-top: 8px; }
+  .edu-years { font-family: var(--font-mono); font-size: 0.8rem; color: var(--color-text-muted); margin-top: 8px; display: inline-block; }
+
+  .cta-band { display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap; }
+
+  @media (max-width: 900px) {
+    .about-hero { grid-template-columns: 1fr; }
+    .kit { grid-template-columns: 1fr; }
+  }
+</style>

@@ -1,0 +1,29 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import { projects } from '../data/site';
+---
+
+<PageLayout title="Work — Chandran Nandkumar" description="Selected robotics, embodied-AI, and product work.">
+  <section class="container page-top page-intro">
+    <span class="eyebrow">Work</span>
+    <h1 class="page-title">Robots, research, and<br /><em>things I’ve shipped.</em></h1>
+    <p class="lead">
+      Projects as evidence for the story — embodied AI and robot learning, interpretability research,
+      award-winning hackathon builds, and products taken end-to-end. A selection below.
+    </p>
+  </section>
+
+  <section class="container work-list">
+    {projects.map((p) => <ProjectCard project={p} detailed />)}
+  </section>
+</PageLayout>
+
+<style>
+  .page-intro { padding-bottom: clamp(40px, 6vh, 80px); }
+  .page-title { margin: 18px 0 28px; }
+  .work-list { display: grid; grid-template-columns: 1fr; gap: 20px; padding-bottom: clamp(20px, 4vh, 60px); }
+  @media (min-width: 1100px) {
+    .work-list { grid-template-columns: 1fr 1fr; }
+  }
+</style>
