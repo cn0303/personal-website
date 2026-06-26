@@ -12,7 +12,7 @@ See: .planning/PROJECT.md (updated 2026-06-26)
 Phase: 1 of 5 (Direction & Narrative)
 Plan: 0 of TBD in current phase
 Status: Ready to plan
-Last activity: 2026-06-26 - Completed quick task 260627-1o5: Second copy pass integrating steerability, source links, first-person journey, and role/bet framing
+Last activity: 2026-06-26 - Completed quick task 260627-28r: Added LinkedIn/source receipt links to Work project cards
 
 Progress: [░░░░░░░░░░] 0%
 
@@ -64,6 +64,7 @@ None yet.
 |---|-------------|------|--------|-----------|
 | 260627-0hi | Rewrite website copy around trustworthy embodied intelligence positioning while preserving existing design | 2026-06-26 | d519da4 | [260627-0hi-rewrite-website-copy-around-trustworthy-](./quick/260627-0hi-rewrite-website-copy-around-trustworthy-/) |
 | 260627-1o5 | Second copy pass: integrate steerability, source links, first-person journey, and role/bet framing | 2026-06-26 | bcb69a6 | [260627-1o5-second-copy-pass-integrate-steerability-](./quick/260627-1o5-second-copy-pass-integrate-steerability-/) |
+| 260627-28r | Add LinkedIn/source receipt links to Work project cards | 2026-06-26 | d6ce6a1 | [260627-28r-add-linkedin-post-receipt-links-to-work-](./quick/260627-28r-add-linkedin-post-receipt-links-to-work-/) |
 
 ## Deferred Items
 
