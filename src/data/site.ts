@@ -488,7 +488,7 @@ export const projectMedia: Record<string, ProjectMedia> = {
   'multi-llm-hri-thesis': { cover: 'cover.png', coverFit: 'contain' },
   'forgis-physical-ai': { cover: 'cover.png', video: '/media/forgis-demo.mp4', poster: '/media/forgis-poster.png' },
   'hyrox-ar-coach': { cover: 'cover.png' },
-  'telosia-elderly-care-robot': { cover: 'cover.avif', gallery: ['g1.avif'] },
+  'telosia-elderly-care-robot': { cover: 'cover.png', coverFit: 'contain', gallery: ['g1.png'] },
   unspool: { cover: 'cover.png' },
   'early-mechatronics-writing': { cover: 'cover.png' },
 };
