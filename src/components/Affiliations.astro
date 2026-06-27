@@ -1,0 +1,30 @@
+---
+import { affiliations } from '../data/site';
+---
+
+<section class="section affiliations">
+  <div class="container">
+    <span class="eyebrow">Worked · studied · competed · contributed</span>
+    <div class="aff-row">
+      {affiliations.map((a) => (
+        <div class="aff-item">
+          {a.logo ? <img src={a.logo} alt={a.name} height="22" loading="lazy" /> : null}
+          <span class="aff-name">{a.name}</span>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .affiliations .eyebrow { margin-bottom: 28px; }
+  .aff-row {
+    display: flex; flex-wrap: wrap; align-items: center;
+    gap: clamp(20px, 3vw, 44px);
+  }
+  .aff-item { display: inline-flex; align-items: center; gap: 9px; opacity: 0.72; transition: opacity 0.2s; }
+  .aff-item:hover { opacity: 1; }
+  .aff-item img { height: 20px; width: auto; display: block; }
+  .aff-name { font-family: var(--font-mono); font-size: 0.92rem; letter-spacing: 0.04em; color: var(--color-text-muted); white-space: nowrap; }
+  @media (max-width: 600px) { .aff-row { gap: 16px 22px; } .aff-name { font-size: 0.82rem; } }
+</style>

@@ -7,8 +7,9 @@ export const site = {
   role: 'Robotics & AI Engineer',
   company: 'Incoming Rapid Prototyping Engineer at Lely',
   location: 'Netherlands',
-  // TODO: swap for real address + custom domain at deploy.
-  email: 'hello@chandrannandkumar.com',
+  // TODO: swap custom domain at deploy.
+  email: 'chandran-nandkumar@gmail.com',
+  resume: '/Chandran-Nandkumar-Resume.pdf',
   links: {
     linkedin: 'https://www.linkedin.com/in/chandran-nandkumar',
     github: 'https://github.com/cn0303',
@@ -459,3 +460,50 @@ export const education = [
     years: '2018-2022',
   },
 ];
+
+// Where I've worked, studied, competed, and contributed.
+// `logo` entries have a monochrome SVG in /public/logos; the rest render as wordmarks.
+export const affiliations: { name: string; logo?: string }[] = [
+  { name: 'Qafka Robotics' },
+  { name: 'Lely' },
+  { name: 'TU Delft' },
+  { name: 'NITK Surathkal' },
+  { name: 'Hugging Face', logo: '/logos/huggingface.svg' },
+  { name: 'Alpine Valley' },
+  { name: 'Arduino', logo: '/logos/arduino.svg' },
+  { name: 'Snap', logo: '/logos/snapchat.svg' },
+  { name: 'IEEE', logo: '/logos/ieee.svg' },
+  { name: 'Frontiers' },
+  { name: 'Junction' },
+];
+
+// Per-project media. cover/gallery are filenames under src/assets/projects/<slug>/
+// (resolved + optimized by Astro <Image>). video/poster are paths under /public.
+export type ProjectMedia = {
+  cover?: string;
+  coverFit?: 'cover' | 'contain';
+  gallery?: string[];
+  video?: string;
+  poster?: string;
+};
+export const projectMedia: Record<string, ProjectMedia> = {
+  'alpine-valley-berry-harvesting': {
+    cover: 'cover.png',
+    video: '/media/irl-pickup.mp4',
+    poster: '/media/irl-pickup-poster.png',
+    gallery: ['g1.png', 'g2.png', 'g3.png', 'g4.png', 'g5.png'],
+  },
+  'vla-interpretability-strawberry': {
+    cover: 'cover.png',
+    video: '/media/brainmap.mp4',
+    poster: '/media/brainmap-poster.png',
+    gallery: ['fig1.png', 'fig2.png', 'fig3.png', 'fig4.png', 'fig5.png', 'fig6.png'],
+  },
+  'qafka-twistlock-autonomy': {},
+  'lelab-open-source': { cover: 'cover.png' },
+  'fitcheck-hardware-understanding': { cover: 'cover.png' },
+  'multi-llm-hri-thesis': { cover: 'cover.png', coverFit: 'contain' },
+  'forgis-physical-ai': { video: '/media/forgis-demo.mp4' },
+  unspool: { cover: 'cover.png', coverFit: 'contain' },
+  'early-mechatronics-writing': { cover: 'cover.png' },
+};

@@ -1,6 +1,8 @@
 ---
 import PageLayout from '../layouts/PageLayout.astro';
+import { Image } from 'astro:assets';
 import { skills, education } from '../data/site';
+import portrait from '../assets/brand/portrait.jpg';
 ---
 
 <PageLayout title="About - Chandran Nandkumar" description="Robotics and AI engineer building real systems while betting on interpretable, steerable embodied AI.">
@@ -8,13 +10,16 @@ import { skills, education } from '../data/site';
     <div>
       <span class="eyebrow">About</span>
       <h1 class="page-title">Robotics engineer with<br /><em>a research bet.</em></h1>
+      <div class="portrait">
+        <Image src={portrait} alt="Chandran Nandkumar" widths={[480, 900]} sizes="(max-width: 900px) 90vw, 42vw" />
+      </div>
     </div>
     <div class="bio">
       <p>
         I am a robotics and AI engineer with an MSc in Robotics from <strong>TU Delft</strong> and a
         mechanical engineering foundation from <strong>NITK Surathkal</strong>. Professionally, I have worked
-        on real-world robot autonomy at <strong>Qafka Robotics</strong> and I am joining <strong>Lely</strong>
-        as a Rapid Prototyping Engineer.
+        on real-world robot autonomy at <strong>Qafka Robotics</strong>, and I am joining
+        <strong>Lely</strong> as a Rapid Prototyping Engineer.
       </p>
       <p>
         My independent bet is narrower and more research-driven: embodied foundation models need the
@@ -72,6 +77,8 @@ import { skills, education } from '../data/site';
 <style>
   .about-hero { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(28px, 5vw, 80px); align-items: start; padding-bottom: clamp(40px, 6vh, 80px); }
   .page-title { margin-top: 18px; }
+  .portrait { margin-top: clamp(28px, 4vw, 44px); border: 1px solid var(--color-border); border-radius: var(--radius-lg); overflow: hidden; aspect-ratio: 4 / 5; background: #06070a; }
+  .portrait :global(img) { width: 100%; height: 100%; object-fit: cover; display: block; }
   .bio p { color: var(--color-text-muted); line-height: 1.7; margin-bottom: 18px; font-size: var(--text-lg); }
   .bio strong { color: var(--color-text); font-weight: 500; }
 

@@ -17,6 +17,8 @@ const {
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="generator" content={Astro.generator} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="theme-color" content="#0a0b0d" />
     <title>{title}</title>
     <meta name="description" content={description} />
 
@@ -24,6 +26,9 @@ const {
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
+    <meta property="og:image" content="/og.jpg" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content="/og.jpg" />
 
     <!-- Fonts: Merriweather · Satoshi (Fontshare) · JetBrains Mono.
          TODO (asset phase): self-host as .woff2 via Astro Fonts API for perf/CWV. -->

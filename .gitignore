@@ -9,6 +9,13 @@ dist/
 .env
 .env.production
 
+# raw asset drop-zone originals — web-ready copies live in src/assets + public/media
+/assets/**/*.mp4
+/assets/**/*.mov
+/assets/**/*.png
+/assets/**/*.jpg
+/assets/**/*.jpeg
+
 # os / editor
 .DS_Store
 Thumbs.db
