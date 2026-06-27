@@ -25,19 +25,26 @@ const featured = projects.slice(0, 3);
       </div>
     </div>
 
-    <!-- cinematic hero video (real footage) -->
-    <div class="visual" aria-hidden="true">
-      <video class="hero-video" autoplay muted loop playsinline poster="/media/irl-pickup-poster.png" data-hero-video>
-        <source src="/media/hero.mp4" type="video/mp4" />
-      </video>
+    <!-- cinematic hero video slideshow (real footage) -->
+    <div class="visual">
+      <div class="hero-slides" data-hero>
+        <video class="hero-video active" muted playsinline preload="auto" poster="/media/irl-pickup-poster.png"><source src="/media/hero.mp4" type="video/mp4" /></video>
+        <video class="hero-video" muted playsinline preload="none" poster="/media/forgis-poster.png"><source src="/media/forgis-demo.mp4" type="video/mp4" /></video>
+        <video class="hero-video" muted playsinline preload="none" poster="/media/brainmap-poster.png"><source src="/media/brainmap.mp4" type="video/mp4" /></video>
+      </div>
       <div class="visual-grad"></div>
       <span class="corner tl"></span><span class="corner tr"></span>
       <span class="corner bl"></span><span class="corner br"></span>
-      <span class="timecode">● ALPINE VALLEY · FIELD</span>
-      <div class="slot-caption">
+      <span class="timecode" data-tc>● ALPINE VALLEY · FIELD</span>
+      <div class="slot-caption" data-caption>
         <span class="sc-kick">Independent research direction</span>
         <span class="sc-main">VLA supervision + steering</span>
-        <span class="sc-sub">SO-101 arms · SmolVLA · Alpine Valley</span>
+        <span class="sc-sub">SO-101 · SmolVLA · Alpine Valley</span>
+      </div>
+      <div class="hero-dots" data-dots>
+        <button type="button" class="on" aria-label="Clip 1: Alpine Valley"></button>
+        <button type="button" aria-label="Clip 2: FORGIS hackathon"></button>
+        <button type="button" aria-label="Clip 3: interpretability"></button>
       </div>
     </div>
   </section>
@@ -79,10 +86,42 @@ const featured = projects.slice(0, 3);
 </BaseLayout>
 
 <script>
-  // Respect reduced-motion: pause the autoplaying hero video.
-  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-    const v = document.querySelector('[data-hero-video]') as HTMLVideoElement | null;
-    if (v) { v.removeAttribute('autoplay'); v.pause(); }
+  // Hero video slideshow: play each clip, crossfade to the next on end. Dots jump.
+  const root = document.querySelector('[data-hero]');
+  if (root) {
+    const slides = Array.from(root.querySelectorAll('video'));
+    const dots = Array.from(document.querySelectorAll('[data-dots] button'));
+    const cap = document.querySelector('[data-caption]');
+    const tc = document.querySelector('[data-tc]');
+    const captions = [
+      { kick: 'Independent research direction', main: 'VLA supervision + steering', sub: 'SO-101 · SmolVLA · Alpine Valley', tc: '● ALPINE VALLEY · FIELD' },
+      { kick: 'Physical AI Hackathon · 1st place', main: 'Vision-guided pick & place', sub: 'Dobot Nova 5 · FORGIS, Zurich', tc: '● FORGIS · ZURICH' },
+      { kick: 'Interpretability research', main: 'Inside a robot’s mind', sub: 'VLA hidden-state brain map', tc: '● UMAP · LAYER 4' },
+    ];
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let idx = 0;
+    function show(i: number) {
+      slides.forEach((v, k) => v.classList.toggle('active', k === i));
+      dots.forEach((d, k) => d.classList.toggle('on', k === i));
+      const c = captions[i];
+      if (cap && c) {
+        const k = cap.querySelector('.sc-kick'); if (k) k.textContent = c.kick;
+        const m = cap.querySelector('.sc-main'); if (m) m.textContent = c.main;
+        const s = cap.querySelector('.sc-sub'); if (s) s.textContent = c.sub;
+      }
+      if (tc && c) tc.textContent = c.tc;
+    }
+    function play(i: number) {
+      idx = i;
+      const v = slides[i];
+      show(i);
+      try { v.currentTime = 0; } catch (e) {}
+      const p = v.play();
+      if (p && p.catch) p.catch(() => {});
+    }
+    slides.forEach((v) => v.addEventListener('ended', () => play((idx + 1) % slides.length)));
+    dots.forEach((d, k) => d.addEventListener('click', () => play(k)));
+    if (reduce) { show(0); } else { play(0); }
   }
 </script>
 
@@ -104,7 +143,12 @@ const featured = projects.slice(0, 3);
 
   /* cinematic hero video */
   .visual { position: relative; overflow: hidden; border-left: 1px solid var(--color-border); background: #06070a; }
-  .hero-video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .hero-slides { position: absolute; inset: 0; }
+  .hero-video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 0.8s var(--ease); }
+  .hero-video.active { opacity: 1; }
+  .hero-dots { position: absolute; left: 0; right: 0; bottom: 26px; display: flex; gap: 8px; justify-content: center; z-index: 3; }
+  .hero-dots button { width: 8px; height: 8px; border-radius: 50%; border: none; background: rgba(243, 241, 234, 0.4); cursor: pointer; padding: 0; transition: all 0.25s var(--ease); }
+  .hero-dots button.on { background: var(--color-accent); width: 22px; border-radius: 4px; }
   .visual-grad { position: absolute; inset: 0; pointer-events: none; background: linear-gradient(180deg, rgba(10,11,13,0.10) 0%, rgba(10,11,13,0.15) 55%, rgba(10,11,13,0.70) 100%); }
   .corner { position: absolute; width: 22px; height: 22px; border: 2px solid rgba(243,241,234,0.55); }
   .corner.tl { top: 22px; left: 22px; border-right: none; border-bottom: none; }

@@ -9,35 +9,57 @@ const kindLabel: Record<string, string> = {
   project: 'Project',
   research: 'Research',
 };
+
+// Logos keyed by the entry's org string (stable, survives reordering).
+const orgLogos: Record<string, string> = {
+  'NITK Surathkal': '/logos/journey/nitk.png',
+  'IEEE ICDTMRA': '/logos/journey/ieee.png',
+  Hackster: '/logos/journey/hackster.png',
+  'MSc Robotics': '/logos/journey/tudelft.png',
+  'TU Delft / Frontiers': '/logos/journey/frontiers.png',
+  'Solo product': '/logos/journey/unspool.png',
+  'Robotics & AI Engineer': '/logos/journey/qafka.png',
+  'FORGIS / Snap / Junction': '/logos/journey/junction.png',
+  'Hugging Face': '/logos/journey/huggingface.png',
+  'Hugging Face open source': '/logos/journey/huggingface.png',
+  'Rapid Prototyping Engineer': '/logos/journey/lely.png',
+};
 ---
 
-<PageLayout title="Journey - Chandran Nandkumar" description="A first-person arc from mechanical engineering to interpretable, steerable embodied AI.">
+<PageLayout title="Journey - Chandran Nandkumar" description="The chronological trajectory - education, research, work, and wins.">
   <section class="container page-top page-intro">
     <span class="eyebrow">Journey</span>
-    <h1 class="page-title">How the bet <em>formed.</em></h1>
+    <h1 class="page-title">How I got <em>here.</em></h1>
     <p class="lead">
-      This is the first-person version: mechanical engineering became robotics,
-      robotics became HRI, real deployment made reliability non-negotiable, and
-      Alpine Valley turned interpretability and steerability into the thing I want
-      to go deep on.
+      A forward-chronological trajectory — from a mechanical-engineering undergrad and a single-propeller UAV,
+      through a robotics master’s at TU Delft, to embodied-AI research, a string of hackathon wins, and building
+      agritech robots in a castle in Austria.
     </p>
   </section>
 
   <section class="container timeline-wrap">
     <ol class="timeline">
-      {timeline.map((e) => (
-        <li class={`tl-item kind-${e.kind}`}>
-          <div class="tl-year">{e.year}</div>
-          <div class="tl-dot" aria-hidden="true"></div>
-          <div class="tl-body">
-            <span class="tl-kind">{kindLabel[e.kind]}</span>
-            <h2 class="tl-title">{e.title}</h2>
-            {e.org && <p class="tl-org">{e.org}</p>}
-            {e.body && <p class="tl-text">{e.body}</p>}
-            {e.link && <a class="tl-link" href={e.link.href} target="_blank" rel="noopener">{e.link.label} -></a>}
-          </div>
-        </li>
-      ))}
+      {timeline.map((e) => {
+        const logo = e.org ? orgLogos[e.org] : undefined;
+        return (
+          <li class={`tl-item kind-${e.kind}`}>
+            <div class="tl-year">{e.year}</div>
+            <div class="tl-dot" aria-hidden="true"></div>
+            <div class="tl-body">
+              <div class="tl-head">
+                {logo && <img class="tl-logo" src={logo} alt={e.org} loading="lazy" width="26" height="26" />}
+                <span class="tl-kind">{kindLabel[e.kind]}</span>
+              </div>
+              <h2 class="tl-title">{e.title}</h2>
+              {e.org && <p class="tl-org">{e.org}</p>}
+              {e.body && <p class="tl-text">{e.body}</p>}
+              {e.link && (
+                <a class="tl-link" href={e.link.href} target="_blank" rel="noopener">{e.link.label} ↗</a>
+              )}
+            </div>
+          </li>
+        );
+      })}
     </ol>
   </section>
 </PageLayout>
@@ -57,16 +79,23 @@ const kindLabel: Record<string, string> = {
   .tl-year { font-family: var(--font-mono); font-size: 0.85rem; letter-spacing: 0.04em; color: var(--color-text-muted); padding-top: 4px; text-align: right; }
   .tl-dot { position: relative; justify-self: center; width: 13px; height: 13px; border-radius: 50%; background: var(--color-bg); border: 2px solid var(--color-text-muted); margin-top: 6px; }
   .kind-award .tl-dot, .kind-work .tl-dot { border-color: var(--color-accent); background: var(--color-accent); }
-  /* connecting line */
   .tl-item:not(:last-child) .tl-dot::after {
     content: ''; position: absolute; left: 50%; top: 16px; transform: translateX(-50%);
     width: 2px; height: calc(100% + clamp(28px, 4vh, 48px)); background: var(--color-border);
   }
+
+  .tl-head { display: flex; align-items: center; gap: 11px; }
+  .tl-logo {
+    width: 26px; height: 26px; border-radius: 6px; object-fit: contain;
+    background: #f3f1ea; padding: 3px; flex: none;
+    filter: grayscale(1); opacity: 0.85; transition: filter 0.25s var(--ease), opacity 0.25s var(--ease);
+  }
+  .tl-item:hover .tl-logo { filter: none; opacity: 1; }
   .tl-kind { font-family: var(--font-mono); font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--color-text-muted); }
-  .tl-title { font-family: var(--font-serif); font-weight: 400; font-size: clamp(1.25rem, 1rem + 0.8vw, 1.7rem); line-height: 1.2; margin: 8px 0 0; }
+  .tl-title { font-family: var(--font-serif); font-weight: 400; font-size: clamp(1.25rem, 1rem + 0.8vw, 1.7rem); line-height: 1.2; margin: 12px 0 0; }
   .tl-org { font-family: var(--font-mono); font-size: 0.8rem; color: var(--color-text-muted); margin-top: 8px; }
   .tl-text { color: var(--color-text-muted); line-height: 1.55; margin-top: 12px; max-width: 64ch; }
-  .tl-link { display: inline-block; margin-top: 12px; font-family: var(--font-mono); font-size: 0.78rem; letter-spacing: 0.06em; color: var(--color-accent); border-bottom: 1px solid var(--color-accent); padding-bottom: 2px; }
+  .tl-link { display: inline-block; margin-top: 14px; font-family: var(--font-mono); font-size: 0.82rem; color: var(--color-text); border-bottom: 1px solid var(--color-accent); padding-bottom: 2px; }
 
   @media (max-width: 620px) {
     .tl-item { grid-template-columns: 20px 1fr; }

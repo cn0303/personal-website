@@ -110,22 +110,6 @@ export const projects: Project[] = [
     ],
   },
   {
-    slug: 'qafka-twistlock-autonomy',
-    title: 'Autonomous Twistlock Handling at Qafka',
-    year: '2024-2026',
-    context: 'Robotics & AI Engineer',
-    oneLiner: 'My first real experience delivering robotics outcomes in a messy physical system.',
-    summary:
-      'At Qafka Robotics, I worked as the sole full-time software engineer on a mobile robot for autonomous twistlock handling. Publicly, I keep the details high-level: perception, stereo/depth, ROS2, state machines, embedded actuation, safety logic, and recovery behavior. The important lesson was not one library or component; it was learning to deliver outcomes when perception, control, hardware, and operators all meet.',
-    highlights: [
-      'Built high-level perception and pose-estimation pipelines for industrial robotics',
-      'Worked across ROS2, stereo/depth, state machines, control, embedded actuation, and safety behavior',
-      'Learned that robots usually fail at subsystem boundaries, not in clean diagrams',
-      'Valued the outcome-first environment: the solution mattered because the robot had to work',
-    ],
-    tags: ['ROS2', 'Computer Vision', 'Control', 'Industrial Robotics'],
-  },
-  {
     slug: 'lelab-open-source',
     title: 'Hugging Face LeLab Contributions',
     year: '2026',
@@ -499,11 +483,12 @@ export const projectMedia: Record<string, ProjectMedia> = {
     poster: '/media/brainmap-poster.png',
     gallery: ['fig1.png', 'fig2.png', 'fig3.png', 'fig4.png', 'fig5.png', 'fig6.png'],
   },
-  'qafka-twistlock-autonomy': {},
   'lelab-open-source': { cover: 'cover.png' },
   'fitcheck-hardware-understanding': { cover: 'cover.png' },
   'multi-llm-hri-thesis': { cover: 'cover.png', coverFit: 'contain' },
-  'forgis-physical-ai': { video: '/media/forgis-demo.mp4' },
-  unspool: { cover: 'cover.png', coverFit: 'contain' },
+  'forgis-physical-ai': { cover: 'cover.png', video: '/media/forgis-demo.mp4', poster: '/media/forgis-poster.png' },
+  'hyrox-ar-coach': { cover: 'cover.png' },
+  'telosia-elderly-care-robot': { cover: 'cover.avif', gallery: ['g1.avif'] },
+  unspool: { cover: 'cover.png' },
   'early-mechatronics-writing': { cover: 'cover.png' },
 };
