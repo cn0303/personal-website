@@ -1,71 +1,70 @@
 ---
 import PageLayout from '../layouts/PageLayout.astro';
 import { Image } from 'astro:assets';
-import { skills, education } from '../data/site';
+import { skills } from '../data/site';
 import portrait from '../assets/brand/portrait.jpg';
 ---
 
-<PageLayout title="About - Chandran Nandkumar" description="Robotics and AI engineer building real systems while betting on interpretable, steerable embodied AI.">
-  <section class="container page-top about-hero">
-    <div>
-      <span class="eyebrow">About</span>
-      <h1 class="page-title">Robotics engineer with<br /><em>a research bet.</em></h1>
-      <div class="portrait">
-        <Image src={portrait} alt="Chandran Nandkumar" widths={[480, 900]} sizes="(max-width: 900px) 90vw, 42vw" />
-      </div>
-    </div>
-    <div class="bio">
-      <p>
-        I am a robotics and AI engineer with an MSc in Robotics from <strong>TU Delft</strong> and a
-        mechanical engineering foundation from <strong>NITK Surathkal</strong>. Professionally, I have worked
-        on real-world robot autonomy at <strong>Qafka Robotics</strong>, and I am joining
-        <strong>Lely</strong> as a Rapid Prototyping Engineer.
-      </p>
-      <p>
-        My independent bet is narrower and more research-driven: embodied foundation models need the
-        reliability and fine-grained control that made classical robotics useful in industry. VLAs and
-        world models are exciting, but they need to become interpretable and steerable before people can
-        trust them in unstructured environments.
-      </p>
-      <p>
-        That is the thread through my work: HRI at TU Delft, deployment instincts at Qafka, the Alpine
-        Valley pivot into VLA interpretability, open-source robotics tooling, and technical writing. I am
-        not trying to look like an agri-tech founder or a generic AI app builder. I am building evidence
-        for a long-term direction: robot intelligence that humans can understand, correct, steer, and rely on.
-      </p>
-    </div>
-  </section>
+<PageLayout title="Manifesto - Chandran Nandkumar" description="Robotics and AI engineer betting on reliable, interpretable, steerable embodied AI, with the work to back it up.">
+  <section class="container page-top about">
+    <span class="eyebrow">Manifesto</span>
+    <h1 class="page-title about-title">Betting on robots the<br />world can <em>rely on</em>.</h1>
 
-  <section class="section container kit">
-    <div class="kit-col">
-      <span class="eyebrow">Focus</span>
-      <ul class="kit-list">
-        {skills.focus.map((f) => <li>{f}</li>)}
-      </ul>
-    </div>
-    <div class="kit-col">
-      <span class="eyebrow">Software & platforms</span>
-      <div class="tag-row">
-        {skills.software.map((s) => <span class="tag">{s}</span>)}
-      </div>
-    </div>
-    <div class="kit-col">
-      <span class="eyebrow">Strengths</span>
-      <ul class="kit-list">
-        {skills.competencies.map((c) => <li>{c}</li>)}
-      </ul>
-    </div>
-  </section>
+    <div class="about-grid">
+      <figure class="about-portrait">
+        <Image src={portrait} alt="Chandran Nandkumar" widths={[480, 900]} sizes="(max-width: 900px) 90vw, 40vw" />
+        <span class="corner tl"></span><span class="corner br"></span>
+      </figure>
 
-  <section class="section container edu">
-    <span class="eyebrow">Education</span>
-    {education.map((e) => (
-      <div class="edu-row">
-        <h2 class="edu-school">{e.school}</h2>
-        <p class="edu-degree">{e.degree}</p>
-        <span class="edu-years">{e.years}</span>
+      <div class="about-content">
+        <div class="bio">
+          <p>
+            I'm a robotics and AI engineer with an MSc in Robotics from <strong>TU Delft</strong> and a
+            mechanical-engineering foundation from <strong>NITK Surathkal</strong>.
+          </p>
+          <p>
+            Professionally, my work has been about <strong>reliability</strong>. At <strong>Qafka Robotics</strong>{' '}
+            I helped deliver robot autonomy that had to work over 99% of the time, repeatably, across changing
+            weather, lighting, and edge cases, with the failure handling to back it up. Next I'm joining{' '}
+            <strong>Lely</strong> as a Rapid Prototyping Engineer.
+          </p>
+          <p>
+            My independent bet is more focused: embodied foundation models need the reliability and fine-grained
+            control that made classical robotics useful in industry. VLAs and world models are powerful, but they
+            have to become interpretable and steerable before anyone can trust them outside a clean lab. Robotics
+            doesn't get to be 83% right; on a real machine, small errors compound into failures.
+          </p>
+          <p>
+            None of this was a master plan. Looking back, the same instinct keeps surfacing: a master's thesis at
+            TU Delft on multi-LLM interfaces for supermarket robots, real-world deployment at Qafka, the Alpine
+            Valley exploration into VLA interpretability, open-source robotics tooling, and writing it up in public.
+            This site isn't a highlight reel. It's the proof that I'm building toward the bet, not just talking
+            about it.
+          </p>
+        </div>
+
+        <div class="capabilities">
+          <div class="cap">
+            <span class="cap-label">Focus</span>
+            <ul class="cap-list">
+              {skills.focus.map((f) => <li>{f}</li>)}
+            </ul>
+          </div>
+          <div class="cap">
+            <span class="cap-label">Software &amp; platforms</span>
+            <div class="tag-row">
+              {skills.software.map((s) => <span class="tag">{s}</span>)}
+            </div>
+          </div>
+          <div class="cap">
+            <span class="cap-label">Strengths</span>
+            <ul class="cap-list">
+              {skills.competencies.map((c) => <li>{c}</li>)}
+            </ul>
+          </div>
+        </div>
       </div>
-    ))}
+    </div>
   </section>
 
   <section class="section container cta-band">
@@ -75,28 +74,35 @@ import portrait from '../assets/brand/portrait.jpg';
 </PageLayout>
 
 <style>
-  .about-hero { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(28px, 5vw, 80px); align-items: start; padding-bottom: clamp(40px, 6vh, 80px); }
-  .page-title { margin-top: 18px; }
-  .portrait { margin-top: clamp(28px, 4vw, 44px); border: 1px solid var(--color-border); border-radius: var(--radius-lg); overflow: hidden; aspect-ratio: 4 / 5; background: #06070a; }
-  .portrait :global(img) { width: 100%; height: 100%; object-fit: cover; display: block; }
-  .bio p { color: var(--color-text-muted); line-height: 1.7; margin-bottom: 18px; font-size: var(--text-lg); }
-  .bio strong { color: var(--color-text); font-weight: 500; }
+  .about { padding-bottom: clamp(20px, 4vh, 48px); }
+  .about-title { margin: 18px 0 clamp(36px, 5vw, 60px); }
 
-  .kit { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(28px, 4vw, 64px); }
-  .kit-list { list-style: none; padding: 0; margin: 0; display: grid; gap: 12px; }
-  .kit-list li { padding-left: 20px; position: relative; line-height: 1.4; }
-  .kit-list li::before { content: '—'; position: absolute; left: 0; color: var(--color-accent); }
+  .about-grid { display: grid; grid-template-columns: 0.82fr 1.18fr; gap: clamp(32px, 5vw, 80px); align-items: start; }
 
-  .edu-row { padding: 22px 0; border-bottom: 1px solid var(--color-border); }
-  .edu-row:first-of-type { border-top: 1px solid var(--color-border); margin-top: 24px; }
-  .edu-school { font-family: var(--font-serif); font-weight: 400; font-size: clamp(1.3rem, 1rem + 1vw, 1.9rem); }
-  .edu-degree { color: var(--color-text-muted); margin-top: 8px; }
-  .edu-years { font-family: var(--font-mono); font-size: 0.8rem; color: var(--color-text-muted); margin-top: 8px; display: inline-block; }
+  .about-portrait { position: sticky; top: 32px; margin: 0; border: 1px solid var(--color-border); overflow: hidden; aspect-ratio: 4 / 5; background: #06070a; }
+  .about-portrait :global(img) { width: 100%; height: 100%; object-fit: cover; display: block; filter: saturate(0.95) contrast(1.04); }
+  .about-portrait .corner { position: absolute; width: 18px; height: 18px; border: 1px solid var(--color-tick); pointer-events: none; }
+  .about-portrait .corner.tl { top: 10px; left: 10px; border-right: none; border-bottom: none; }
+  .about-portrait .corner.br { bottom: 10px; right: 10px; border-left: none; border-top: none; }
 
-  .cta-band { display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap; }
+  .bio p { font-family: var(--font-serif); color: var(--color-text-muted); line-height: 1.7; margin-bottom: 18px; font-size: var(--text-lg); }
+  /* emphasis = a quiet underline, never bold or italic */
+  .bio strong { font-weight: 400; color: var(--color-text); text-decoration: underline; text-decoration-color: rgba(214, 89, 46, 0.55); text-underline-offset: 4px; text-decoration-thickness: 1px; }
+
+  .capabilities { margin-top: clamp(32px, 4vw, 52px); display: grid; gap: 0; }
+  .cap { padding: clamp(20px, 2.4vw, 28px) 0; border-top: 1px solid var(--color-hairline); display: grid; grid-template-columns: 150px 1fr; gap: clamp(14px, 2vw, 32px); }
+  .cap:last-child { border-bottom: 1px solid var(--color-hairline); }
+  .cap-label { font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--color-accent); padding-top: 3px; }
+  .cap-list { list-style: none; padding: 0; margin: 0; display: grid; gap: 11px; }
+  .cap-list li { padding-left: 22px; position: relative; line-height: 1.4; }
+  .cap-list li::before { content: ''; position: absolute; left: 0; top: 0.62em; width: 12px; height: 1px; background: var(--color-accent); }
+
+  .cta-band { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 26px; }
+  .cta-band .section-title { max-width: 24ch; }
 
   @media (max-width: 900px) {
-    .about-hero { grid-template-columns: 1fr; }
-    .kit { grid-template-columns: 1fr; }
+    .about-grid { grid-template-columns: 1fr; }
+    .about-portrait { position: relative; top: 0; max-width: 420px; }
+    .cap { grid-template-columns: 1fr; gap: 10px; }
   }
 </style>

@@ -1,15 +1,25 @@
 ---
-import { affiliations } from '../data/site';
+import { affiliationGroups } from '../data/site';
 ---
 
 <section class="section affiliations">
   <div class="container">
-    <span class="eyebrow">Worked · studied · competed · contributed</span>
-    <div class="aff-row">
-      {affiliations.map((a) => (
-        <div class="aff-item">
-          {a.logo ? <img src={a.logo} alt={a.name} height="22" loading="lazy" /> : null}
-          <span class="aff-name">{a.name}</span>
+    <div class="aff-groups">
+      {affiliationGroups.map((g) => (
+        <div class="aff-group">
+          <span class="aff-cat">{g.label}</span>
+          <div class="aff-pills">
+            {g.items.map((it) => (
+              <div class="aff-pill">
+                {it.logo ? (
+                  <span class="aff-chip"><img class="aff-logo" src={it.logo} alt={it.name} loading="lazy" /></span>
+                ) : (
+                  <span class="aff-mark" aria-hidden="true">{it.name.slice(0, 1)}</span>
+                )}
+                <span class="aff-name">{it.name}</span>
+              </div>
+            ))}
+          </div>
         </div>
       ))}
     </div>
@@ -17,14 +27,51 @@ import { affiliations } from '../data/site';
 </section>
 
 <style>
-  .affiliations .eyebrow { margin-bottom: 28px; }
-  .aff-row {
-    display: flex; flex-wrap: wrap; align-items: center;
-    gap: clamp(20px, 3vw, 44px);
+  .aff-groups { display: grid; gap: 0; }
+  .aff-group {
+    display: grid; grid-template-columns: 150px 1fr; gap: clamp(16px, 3vw, 44px);
+    align-items: center;
+    padding: clamp(18px, 2.4vw, 26px) 0;
+    border-top: 1px solid var(--color-hairline);
   }
-  .aff-item { display: inline-flex; align-items: center; gap: 9px; opacity: 0.72; transition: opacity 0.2s; }
-  .aff-item:hover { opacity: 1; }
-  .aff-item img { height: 20px; width: auto; display: block; }
-  .aff-name { font-family: var(--font-mono); font-size: 0.92rem; letter-spacing: 0.04em; color: var(--color-text-muted); white-space: nowrap; }
-  @media (max-width: 600px) { .aff-row { gap: 16px 22px; } .aff-name { font-size: 0.82rem; } }
+  .aff-group:last-child { border-bottom: 1px solid var(--color-hairline); }
+  .aff-cat {
+    font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.18em;
+    text-transform: uppercase; color: var(--color-accent);
+  }
+  .aff-pills { display: flex; flex-wrap: wrap; gap: 10px; }
+  .aff-pill {
+    display: inline-flex; align-items: center; gap: 9px;
+    padding: 7px 16px 7px 7px; border-radius: var(--radius-full);
+    border: 1px solid var(--color-border); background: var(--color-surface);
+    transition: border-color 0.2s var(--ease);
+  }
+  .aff-pill:hover { border-color: var(--color-blue); }
+  /* small muted chip holds each logo so opaque + transparent logos read the same */
+  .aff-chip {
+    width: 26px; height: 26px; flex: none; border-radius: 6px;
+    background: #ece9e1; display: grid; place-items: center; padding: 3px;
+  }
+  .aff-logo {
+    max-width: 100%; max-height: 100%; width: auto; object-fit: contain; display: block;
+    filter: grayscale(1); opacity: 0.82; transition: filter 0.25s var(--ease), opacity 0.25s var(--ease);
+  }
+  .aff-pill:hover .aff-logo { filter: none; opacity: 1; }
+  .aff-mark {
+    width: 26px; height: 26px; border-radius: 6px; flex: none;
+    display: grid; place-items: center;
+    font-family: var(--font-mono); font-size: 0.8rem; color: var(--color-ink-text);
+    background: #ece9e1;
+  }
+  .aff-name {
+    font-family: var(--font-mono); font-size: 0.86rem; letter-spacing: 0.02em;
+    color: var(--color-text-muted); white-space: nowrap;
+    transition: color 0.2s var(--ease);
+  }
+  .aff-pill:hover .aff-name { color: var(--color-text); }
+
+  @media (max-width: 620px) {
+    .aff-group { grid-template-columns: 1fr; gap: 12px; }
+    .aff-cat { color: var(--color-accent); }
+  }
 </style>

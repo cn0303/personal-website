@@ -3,9 +3,15 @@ import { Image } from 'astro:assets';
 import type { ImageMetadata } from 'astro';
 import type { Project } from '../data/site';
 import { projectMedia } from '../data/site';
+import { projectImg } from '../lib/projectImage';
 
-interface Props { project: Project; detailed?: boolean; }
-const { project, detailed = false } = Astro.props;
+interface Props {
+  project: Project;
+  detailed?: boolean;
+  /* editorial layouts used on the home page */
+  layout?: 'card' | 'feature' | 'row';
+}
+const { project, detailed = false, layout = 'card' } = Astro.props;
 
 const projectLinks = [
   ...(project.link ? [project.link] : []),
@@ -13,77 +19,154 @@ const projectLinks = [
 ];
 
 const m = projectMedia[project.slug] ?? {};
-const imgs = import.meta.glob<{ default: ImageMetadata }>(
-  '../assets/projects/*/*.{png,jpg,jpeg,webp}',
-  { eager: true },
-);
-const pick = (name?: string) =>
-  name ? imgs[`../assets/projects/${project.slug}/${name}`]?.default : undefined;
-
-const cover = pick(m.cover);
+const cover = projectImg(project.slug, m.cover);
 const coverFit = m.coverFit ?? 'cover';
-const gallery = (m.gallery ?? []).map(pick).filter(Boolean) as ImageMetadata[];
+const gallery = (m.gallery ?? [])
+  .map((n) => projectImg(project.slug, n))
+  .filter(Boolean) as ImageMetadata[];
 const hasMedia = Boolean(cover || m.video);
 ---
 
-<article class:list={['proj-card', { detailed, 'has-media': hasMedia }]}>
-  {/* lead media: video (detailed) else cover image */}
-  {detailed && m.video ? (
-    <div class="pc-media">
-      <video class="pc-video" controls preload="none" playsinline poster={m.poster}>
-        <source src={m.video} type="video/mp4" />
-      </video>
+{layout === 'feature' ? (
+  /* ── large editorial feature module ── */
+  <article class="proj-feature">
+    <a class="pf-media panel brackets" href="/work" aria-label={`Read about ${project.title}`}>
+      {cover ? (
+        <Image src={cover} alt={`${project.title} cover`} widths={[560, 1120, 1440]} sizes="(max-width: 900px) 92vw, 52vw" />
+      ) : (
+        <span class="pf-slot meta">IMAGE SLOT · {project.slug}</span>
+      )}
+      <span class="pf-badge meta">◆ FEATURED · {project.year}</span>
+    </a>
+    <div class="pf-body">
+      <p class="pf-context meta">{project.context}</p>
+      <h3 class="pf-title">{project.title}</h3>
+      <p class="pf-one">{project.oneLiner}</p>
+      <div class="tag-row pf-tags">
+        {project.tags.map((t) => <span class="tag">{t}</span>)}
+      </div>
+      <a class="link-tech pf-read" href="/work">Read the case →</a>
     </div>
-  ) : cover ? (
-    <div class:list={['pc-media', 'pc-cover', `fit-${coverFit}`]}>
-      <Image src={cover} alt={`${project.title} cover`} widths={[480, 960, 1440]} sizes="(max-width: 900px) 92vw, 640px" />
+  </article>
+) : layout === 'row' ? (
+  /* ── compact secondary module ── */
+  <a class="proj-row" href="/work">
+    <span class="pr-year meta">{project.year}</span>
+    <div class="pr-thumb panel">
+      {cover ? (
+        <Image src={cover} alt={`${project.title} cover`} widths={[160, 320]} sizes="120px" />
+      ) : (
+        <span class="pr-slot" aria-hidden="true"></span>
+      )}
     </div>
-  ) : null}
+    <div class="pr-main">
+      <h4 class="pr-title">{project.title}</h4>
+      <p class="pr-one">{project.oneLiner}</p>
+      <div class="tag-row pr-tags">
+        {project.tags.slice(0, 3).map((t) => <span class="tag">{t}</span>)}
+      </div>
+    </div>
+    <span class="pr-arrow" aria-hidden="true">↗</span>
+  </a>
+) : (
+  /* ── default card / detailed (work page) ── */
+  <article class:list={['proj-card', { detailed, 'has-media': hasMedia }]}>
+    {detailed && m.video ? (
+      <div class="pc-media">
+        <video class="pc-video" controls preload="none" playsinline poster={m.poster}>
+          <source src={m.video} type="video/mp4" />
+        </video>
+      </div>
+    ) : cover ? (
+      <div class:list={['pc-media', 'pc-cover', `fit-${coverFit}`]}>
+        <Image src={cover} alt={`${project.title} cover`} widths={[480, 960, 1440]} sizes="(max-width: 900px) 92vw, 640px" />
+      </div>
+    ) : null}
 
-  <div class="pc-body">
-    <div class="pc-top">
-      <span class="pc-year">{project.year}</span>
-      {project.award && <span class="pc-award">★ {project.award}</span>}
+    <div class="pc-body">
+      <div class="pc-top">
+        <span class="pc-year">{project.year}</span>
+        {project.award && <span class="pc-award">★ {project.award}</span>}
+      </div>
+
+      <h3 class="pc-title">{project.title}</h3>
+      <p class="pc-context">{project.context}</p>
+      <p class="pc-one">{project.oneLiner}</p>
+
+      {detailed && (
+        <>
+          <p class="pc-summary">{project.summary}</p>
+          <ul class="pc-highlights">
+            {project.highlights.map((h) => <li>{h}</li>)}
+          </ul>
+          {projectLinks.length > 0 && (
+            <div class="pc-links">
+              {projectLinks.map((link) => (
+                <a class="link-tech" href={link.href} target="_blank" rel="noopener">{link.label} ↗</a>
+              ))}
+            </div>
+          )}
+          {gallery.length > 0 && (
+            <div class="pc-gallery">
+              {gallery.map((g) => (
+                <div class="g-item">
+                  <Image src={g} alt={`${project.title} detail`} widths={[400, 800]} sizes="(max-width: 700px) 90vw, 360px" loading="lazy" />
+                </div>
+              ))}
+            </div>
+          )}
+        </>
+      )}
+
+      <div class="tag-row pc-tags">
+        {project.tags.map((t) => <span class="tag">{t}</span>)}
+      </div>
     </div>
 
-    <h3 class="pc-title">{project.title}</h3>
-    <p class="pc-context">{project.context}</p>
-    <p class="pc-one">{project.oneLiner}</p>
-
-    {detailed && (
-      <>
-        <p class="pc-summary">{project.summary}</p>
-        <ul class="pc-highlights">
-          {project.highlights.map((h) => <li>{h}</li>)}
-        </ul>
-        {projectLinks.length > 0 && (
-          <div class="pc-links">
-            {projectLinks.map((link) => (
-              <a class="pc-link" href={link.href} target="_blank" rel="noopener">{link.label} ↗</a>
-            ))}
-          </div>
-        )}
-        {gallery.length > 0 && (
-          <div class="pc-gallery">
-            {gallery.map((g) => (
-              <div class="g-item">
-                <Image src={g} alt={`${project.title} detail`} widths={[400, 800]} sizes="(max-width: 700px) 90vw, 360px" loading="lazy" />
-              </div>
-            ))}
-          </div>
-        )}
-      </>
-    )}
-
-    <div class="tag-row pc-tags">
-      {project.tags.map((t) => <span class="tag">{t}</span>)}
-    </div>
-  </div>
-
-  {!detailed && <a class="pc-stretch" href="/work" aria-label={`Read about ${project.title}`}></a>}
-</article>
+    {!detailed && <a class="pc-stretch" href="/work" aria-label={`Read about ${project.title}`}></a>}
+  </article>
+)}
 
 <style>
+  /* ───────── feature module ───────── */
+  .proj-feature {
+    display: grid; grid-template-columns: 1.15fr 1fr; gap: clamp(24px, 3.5vw, 56px);
+    align-items: center;
+  }
+  .pf-media {
+    position: relative; display: block; aspect-ratio: 16 / 10; overflow: hidden;
+    transition: border-color 0.3s var(--ease);
+  }
+  .pf-media:hover { border-color: var(--color-blue); }
+  .pf-media :global(img) { width: 100%; height: 100%; object-fit: cover; display: block; filter: saturate(0.94) contrast(1.04); }
+  .pf-slot { position: absolute; inset: 0; display: grid; place-items: center; color: var(--color-text-muted); }
+  .pf-badge { position: absolute; top: 14px; left: 14px; color: var(--color-accent); text-shadow: 0 1px 6px rgba(0,0,0,0.7); letter-spacing: 0.12em; }
+  .pf-context { color: var(--color-blue); letter-spacing: 0.1em; }
+  .pf-title { font-family: var(--font-sans); font-weight: 600; letter-spacing: -0.015em; font-size: clamp(1.9rem, 1.3rem + 1.9vw, 3rem); line-height: 1.08; margin: 16px 0 0; }
+  .pf-one { font-family: var(--font-serif); font-size: var(--text-lg); color: var(--color-text-muted); line-height: 1.5; margin-top: 16px; max-width: 46ch; }
+  .pf-tags { margin-top: 22px; }
+  .pf-read { margin-top: 24px; }
+
+  /* ───────── compact row ───────── */
+  .proj-row {
+    display: grid; grid-template-columns: 62px 120px 1fr auto; align-items: center;
+    gap: clamp(14px, 2vw, 28px); padding: clamp(16px, 2.2vw, 24px) 6px;
+    border-top: 1px solid var(--color-hairline);
+    transition: padding-left 0.25s var(--ease);
+  }
+  .proj-row:hover { padding-left: 14px; }
+  .proj-row:hover .pr-arrow { color: var(--color-blue); transform: translate(2px, -2px); }
+  .proj-row:hover .pr-thumb { border-color: var(--color-blue); }
+  .pr-year { color: var(--color-accent); align-self: start; padding-top: 4px; }
+  .pr-thumb { aspect-ratio: 4 / 3; overflow: hidden; }
+  .pr-thumb :global(img) { width: 100%; height: 100%; object-fit: cover; display: block; filter: saturate(0.9) contrast(1.05); }
+  .pr-slot { display: block; width: 100%; height: 100%; }
+  .pr-title { font-family: var(--font-sans); font-weight: 600; letter-spacing: -0.01em; font-size: clamp(1.15rem, 0.95rem + 0.7vw, 1.5rem); line-height: 1.15; }
+  .pr-one { font-family: var(--font-serif); color: var(--color-text-muted); margin-top: 7px; line-height: 1.45; max-width: 60ch; font-size: 0.96rem; }
+  .pr-tags { margin-top: 12px; }
+  .pr-arrow { font-family: var(--font-mono); color: var(--color-text-muted); transition: color 0.2s var(--ease), transform 0.2s var(--ease); align-self: start; padding-top: 4px; }
+
+  /* ───────── default card ───────── */
   .proj-card {
     position: relative;
     border: 1px solid var(--color-border);
@@ -97,7 +180,6 @@ const hasMedia = Boolean(cover || m.video);
   }
   .proj-card:not(.detailed):hover { border-color: var(--color-text-muted); transform: translateY(-3px); }
 
-  /* lead media */
   .pc-media { width: 100%; background: #06070a; border-bottom: 1px solid var(--color-border); }
   .pc-cover { aspect-ratio: 16 / 10; overflow: hidden; }
   .pc-cover :global(img) { width: 100%; height: 100%; display: block; }
@@ -111,17 +193,15 @@ const hasMedia = Boolean(cover || m.video);
   .pc-top { display: flex; align-items: center; gap: 12px; justify-content: space-between; }
   .pc-year { font-family: var(--font-mono); font-size: var(--text-sm); color: var(--color-text-muted); letter-spacing: 0.08em; }
   .pc-award { font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.06em; color: var(--color-accent); text-align: right; }
-  .pc-title { font-family: var(--font-serif); font-weight: 400; font-size: clamp(1.5rem, 1.1rem + 1.1vw, 2.1rem); line-height: 1.12; margin-top: 16px; }
+  .pc-title { font-family: var(--font-sans); font-weight: 600; letter-spacing: -0.015em; font-size: clamp(1.5rem, 1.1rem + 1.1vw, 2.1rem); line-height: 1.14; margin-top: 16px; }
   .pc-context { font-family: var(--font-mono); font-size: 0.78rem; letter-spacing: 0.04em; color: var(--color-text-muted); margin-top: 10px; }
-  .pc-one { font-size: var(--text-lg); margin-top: 14px; line-height: 1.45; }
-  .pc-summary { color: var(--color-text-muted); margin-top: 16px; line-height: 1.6; max-width: 70ch; }
+  .pc-one { font-family: var(--font-serif); font-size: var(--text-lg); margin-top: 14px; line-height: 1.45; }
+  .pc-summary { font-family: var(--font-serif); color: var(--color-text-muted); margin-top: 16px; line-height: 1.6; max-width: 70ch; }
   .pc-highlights { margin-top: 16px; padding-left: 0; list-style: none; display: grid; gap: 10px; max-width: 70ch; }
-  .pc-highlights li { position: relative; padding-left: 22px; color: var(--color-text); line-height: 1.45; }
+  .pc-highlights li { font-family: var(--font-serif); position: relative; padding-left: 22px; color: var(--color-text); line-height: 1.45; }
   .pc-highlights li::before { content: '→'; position: absolute; left: 0; color: var(--color-accent); font-family: var(--font-mono); }
   .pc-links { display: flex; flex-wrap: wrap; gap: 12px 16px; margin-top: 18px; }
-  .pc-link { display: inline-block; font-family: var(--font-mono); font-size: 0.85rem; color: var(--color-text); border-bottom: 1px solid var(--color-accent); padding-bottom: 2px; }
 
-  /* masonry gallery — robust to mixed orientations */
   .pc-gallery { columns: 2; column-gap: 12px; margin-top: 22px; }
   .g-item { break-inside: avoid; margin-bottom: 12px; }
   .g-item :global(img) { width: 100%; height: auto; display: block; border: 1px solid var(--color-border); border-radius: 8px; background: #06070a; }
@@ -129,4 +209,12 @@ const hasMedia = Boolean(cover || m.video);
 
   .pc-tags { margin-top: 22px; padding-top: 4px; }
   .pc-stretch { position: absolute; inset: 0; z-index: 1; }
+
+  /* ───────── responsive ───────── */
+  @media (max-width: 860px) {
+    .proj-feature { grid-template-columns: 1fr; gap: 24px; }
+    .proj-row { grid-template-columns: 90px 1fr auto; }
+    .pr-year { grid-column: 1 / 2; }
+    .pr-thumb { display: none; }
+  }
 </style>

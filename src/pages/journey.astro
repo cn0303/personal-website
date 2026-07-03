@@ -31,7 +31,7 @@ const orgLogos: Record<string, string> = {
     <span class="eyebrow">Journey</span>
     <h1 class="page-title">How I got <em>here.</em></h1>
     <p class="lead">
-      A forward-chronological trajectory — from a mechanical-engineering undergrad and a single-propeller UAV,
+      A forward-chronological trajectory, from a mechanical-engineering undergrad and a single-propeller UAV,
       through a robotics master’s at TU Delft, to embodied-AI research, a string of hackathon wins, and building
       agritech robots in a castle in Austria.
     </p>
@@ -92,10 +92,11 @@ const orgLogos: Record<string, string> = {
   }
   .tl-item:hover .tl-logo { filter: none; opacity: 1; }
   .tl-kind { font-family: var(--font-mono); font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--color-text-muted); }
-  .tl-title { font-family: var(--font-serif); font-weight: 400; font-size: clamp(1.25rem, 1rem + 0.8vw, 1.7rem); line-height: 1.2; margin: 12px 0 0; }
+  .tl-title { font-family: var(--font-sans); font-weight: 600; letter-spacing: -0.01em; font-size: clamp(1.25rem, 1rem + 0.8vw, 1.7rem); line-height: 1.2; margin: 12px 0 0; }
   .tl-org { font-family: var(--font-mono); font-size: 0.8rem; color: var(--color-text-muted); margin-top: 8px; }
-  .tl-text { color: var(--color-text-muted); line-height: 1.55; margin-top: 12px; max-width: 64ch; }
-  .tl-link { display: inline-block; margin-top: 14px; font-family: var(--font-mono); font-size: 0.82rem; color: var(--color-text); border-bottom: 1px solid var(--color-accent); padding-bottom: 2px; }
+  .tl-text { font-family: var(--font-serif); color: var(--color-text-muted); line-height: 1.55; margin-top: 12px; max-width: 64ch; }
+  .tl-link { display: inline-block; margin-top: 14px; font-family: var(--font-mono); font-size: 0.82rem; color: var(--color-blue); border-bottom: 1px solid rgba(90, 162, 255, 0.4); padding-bottom: 2px; transition: border-color 0.2s var(--ease), color 0.2s var(--ease); }
+  .tl-link:hover { color: #8bc0ff; border-bottom-color: var(--color-blue); }
 
   @media (max-width: 620px) {
     .tl-item { grid-template-columns: 20px 1fr; }

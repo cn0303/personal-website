@@ -3,8 +3,10 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import SiteHeader from '../components/SiteHeader.astro';
 import SiteFooter from '../components/SiteFooter.astro';
 import ProjectCard from '../components/ProjectCard.astro';
+import SectionLabel from '../components/SectionLabel.astro';
+import LineIcon from '../components/LineIcon.astro';
 import Affiliations from '../components/Affiliations.astro';
-import { site, bets, projects } from '../data/site';
+import { bets, projects, focusAreas } from '../data/site';
 
 const featured = projects.slice(0, 3);
 ---
@@ -15,13 +17,20 @@ const featured = projects.slice(0, 3);
     <div class="left">
       <SiteHeader />
       <div class="headline-block">
-        <span class="kicker">Robotics & AI Engineer · Incoming at Lely</span>
-        <h1>Building real robots. Betting on <em>steerable</em> embodied AI.</h1>
-        <p class="lede">{site.lede}</p>
+        <span class="hero-label">Robotics Engineer</span>
+        <h1 class="hero-name">Chandran<br />Nandkumar</h1>
+        <p class="hero-statement">
+          I build robots and AI systems that <em>survive contact</em> with the physical world.
+        </p>
         <div class="cta-row">
           <a class="pill" href="/work">See the work →</a>
-          <a class="pill ghost" href="/about">About me</a>
+          <a class="pill ghost" href="/about">Read the manifesto</a>
         </div>
+      </div>
+      <div class="hero-foot meta-strip">
+        <span class="meta">ROBOTICS</span><span class="dot"></span>
+        <span class="meta">EMBODIED AI</span><span class="dot"></span>
+        <span class="meta">SYSTEMS</span>
       </div>
     </div>
 
@@ -49,14 +58,43 @@ const featured = projects.slice(0, 3);
     </div>
   </section>
 
-  <!-- ───────── BETS ───────── -->
+  <!-- ───────── CURRENT FOCUS ───────── -->
+  <section class="section focus-sec">
+    <div class="container">
+      <SectionLabel index="01" label="Current Focus" />
+      <div class="focus-grid">
+        {focusAreas.map((f, i) => (
+          <div class="focus">
+            <div class:list={['focus-ico', 'panel', 'brackets', i % 2 === 0 ? 'c-orange' : 'c-blue']}>
+              <LineIcon name={f.icon} />
+            </div>
+            <div class="focus-main">
+              <div class="focus-head">
+                <span class="focus-n">{f.n}</span>
+                <span class="tag">{f.tag}</span>
+              </div>
+              <h3 class="focus-title">{f.title}</h3>
+              <p class="focus-body">{f.body}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ───────── THE BETS ───────── -->
   <section class="section bets">
     <div class="container">
-      <span class="eyebrow">What I'm betting on</span>
+      <SectionLabel index="02" label="What I'm betting on" />
       <div class="bets-grid">
-        {bets.map((b) => (
+        {bets.map((b, i) => (
           <div class="bet">
-            <span class="bet-n">{b.n}</span>
+            <div class="bet-head">
+              <div class:list={['bet-ico', 'panel', 'brackets', i % 2 === 0 ? 'c-orange' : 'c-blue']}>
+                <LineIcon name={b.icon} />
+              </div>
+              <span class="bet-n">{b.n}</span>
+            </div>
             <h2 class="bet-title">{b.title}</h2>
             <p class="bet-body">{b.body}</p>
           </div>
@@ -65,18 +103,15 @@ const featured = projects.slice(0, 3);
     </div>
   </section>
 
-  <!-- ───────── SELECTED WORK ───────── -->
+  <!-- ───────── FEATURED WORK ───────── -->
   <section class="section work-preview">
     <div class="container">
-      <div class="sec-head">
-        <div>
-          <span class="eyebrow">Selected work</span>
-          <h2 class="section-title">Evidence for the thesis, not a trophy shelf.</h2>
-        </div>
-        <a class="pill ghost" href="/work">All work →</a>
-      </div>
+      <SectionLabel index="03" label="Featured Work" />
       <div class="cards-3">
         {featured.map((p) => <ProjectCard project={p} />)}
+      </div>
+      <div class="work-more">
+        <a class="link-tech" href="/work">All work →</a>
       </div>
     </div>
   </section>
@@ -131,15 +166,34 @@ const featured = projects.slice(0, 3);
     position: relative; min-height: 100vh; display: grid;
     grid-template-columns: 1.06fr 0.94fr; align-items: stretch;
     background:
-      radial-gradient(90% 120% at 12% 0%, rgba(214, 73, 46, 0.1), transparent 55%),
+      radial-gradient(90% 120% at 12% 0%, rgba(214, 89, 46, 0.1), transparent 55%),
       linear-gradient(180deg, #0a0b0d, #0d0f12);
   }
-  .left { display: flex; flex-direction: column; padding: clamp(28px, 3vw, 44px) clamp(48px, 6vw, 120px) clamp(40px, 5vh, 80px) var(--gutter); }
-  .headline-block { margin-top: auto; margin-bottom: auto; }
-  h1 { font-family: var(--font-sans); font-weight: 700; font-size: var(--display); line-height: 0.98; letter-spacing: -0.03em; margin: 14px 0 clamp(20px, 3vh, 32px); }
-  h1 em { font-family: var(--font-serif); font-style: italic; font-weight: 300; }
-  .lede { font-size: var(--text-lg); color: var(--color-text-muted); max-width: 44ch; line-height: 1.5; margin-bottom: clamp(26px, 4vh, 40px); }
+  .left { display: flex; flex-direction: column; padding: clamp(28px, 3vw, 44px) clamp(28px, 3vw, 60px) clamp(28px, 4vh, 44px) var(--gutter); }
+  .headline-block { margin-top: auto; margin-bottom: auto; padding-block: clamp(24px, 4vh, 48px); }
+
+  .hero-label {
+    font-family: var(--font-mono); font-size: var(--kicker);
+    letter-spacing: 0.2em; text-transform: uppercase; color: var(--color-text-muted);
+    display: inline-flex; align-items: center; gap: 10px;
+  }
+  .hero-label::before { content: ''; width: 16px; height: 1px; background: var(--color-accent); }
+
+  .hero-name {
+    font-family: var(--font-serif); font-weight: 400;
+    font-size: var(--display-lg); line-height: 0.94; letter-spacing: -0.02em;
+    margin: 18px 0 clamp(20px, 3vh, 30px);
+  }
+  .hero-statement {
+    font-family: var(--font-sans); font-size: clamp(1.15rem, 0.95rem + 0.9vw, 1.6rem);
+    line-height: 1.35; color: var(--color-text); max-width: 30ch;
+    margin-bottom: clamp(26px, 4vh, 40px);
+  }
+  .hero-statement em { font-family: inherit; font-style: normal; color: var(--color-accent); text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 5px; }
+
   .cta-row { display: flex; gap: 14px; flex-wrap: wrap; }
+
+  .hero-foot { margin-top: auto; padding-top: 20px; border-top: 1px solid var(--color-hairline); }
 
   /* cinematic hero video */
   .visual { position: relative; overflow: hidden; border-left: 1px solid var(--color-border); background: #06070a; }
@@ -158,21 +212,41 @@ const featured = projects.slice(0, 3);
   .timecode { position: absolute; top: 24px; right: 30px; font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.14em; color: #f3f1ea; text-shadow: 0 1px 4px rgba(0,0,0,0.6); }
   .slot-caption { position: absolute; left: 34px; bottom: 34px; display: flex; flex-direction: column; gap: 8px; text-shadow: 0 1px 6px rgba(0,0,0,0.7); }
   .sc-kick { font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--color-accent); }
-  .sc-main { font-family: var(--font-serif); font-size: clamp(1.2rem, 0.9rem + 1vw, 1.7rem); color: #f3f1ea; }
+  .sc-main { font-family: var(--font-sans); font-weight: 600; font-size: clamp(1.15rem, 0.9rem + 1vw, 1.6rem); color: #f3f1ea; }
   .sc-sub { font-family: var(--font-mono); font-size: 0.74rem; letter-spacing: 0.06em; color: rgba(243,241,234,0.82); }
 
-  /* ───────── bets ───────── */
-  .bets-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(24px, 3vw, 56px); margin-top: 12px; }
-  .bet-n { font-family: var(--font-mono); font-size: var(--text-sm); color: var(--color-accent); letter-spacing: 0.1em; }
-  .bet-title { font-family: var(--font-serif); font-weight: 400; font-size: clamp(1.4rem, 1.1rem + 1vw, 2rem); margin: 14px 0 14px; line-height: 1.15; }
-  .bet-body { color: var(--color-text-muted); line-height: 1.6; }
+  /* ───────── current focus ───────── */
+  .focus-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0 clamp(32px, 4vw, 72px); }
+  .focus {
+    display: grid; grid-template-columns: 58px 1fr; gap: 20px;
+    padding: clamp(26px, 3vw, 40px) 0;
+    border-top: 1px solid var(--color-hairline);
+  }
+  .focus-ico { width: 58px; height: 58px; padding: 11px; }
+  .focus-ico.c-orange { color: var(--color-accent); }
+  .focus-ico.c-blue { color: var(--color-blue); }
+  .focus-head { display: flex; align-items: center; gap: 12px; }
+  .focus-n { font-family: var(--font-mono); font-size: var(--text-sm); color: var(--color-accent); letter-spacing: 0.1em; }
+  .focus-title { font-family: var(--font-sans); font-weight: 600; font-size: clamp(1.3rem, 1.05rem + 0.9vw, 1.8rem); line-height: 1.14; margin: 12px 0 0; letter-spacing: -0.01em; }
+  .focus-body { font-family: var(--font-serif); color: var(--color-text-muted); line-height: 1.55; margin-top: 12px; max-width: 46ch; }
 
-  /* ───────── work preview ───────── */
-  .sec-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; margin-bottom: clamp(32px, 4vw, 56px); }
+  /* ───────── bets ───────── */
+  .bets-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(24px, 3vw, 56px); }
+  .bet-head { display: flex; align-items: center; gap: 14px; margin-bottom: 18px; }
+  .bet-ico { width: 46px; height: 46px; padding: 9px; flex: none; }
+  .bet-ico.c-orange { color: var(--color-accent); }
+  .bet-ico.c-blue { color: var(--color-blue); }
+  .bet-n { font-family: var(--font-mono); font-size: var(--text-sm); color: var(--color-accent); letter-spacing: 0.1em; }
+  .bet-title { font-family: var(--font-sans); font-weight: 600; font-size: clamp(1.3rem, 1.05rem + 0.9vw, 1.8rem); margin: 0 0 12px; line-height: 1.16; letter-spacing: -0.01em; }
+  .bet-body { font-family: var(--font-serif); color: var(--color-text-muted); line-height: 1.6; }
+
+  /* ───────── featured work ───────── */
   .cards-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  .work-more { display: flex; justify-content: flex-end; margin-top: clamp(24px, 3vw, 36px); }
 
   /* ───────── responsive ───────── */
   @media (max-width: 980px) {
+    .focus-grid { grid-template-columns: 1fr; gap: 0; }
     .bets-grid { grid-template-columns: 1fr; gap: 32px; }
     .cards-3 { grid-template-columns: 1fr; }
   }
@@ -181,12 +255,9 @@ const featured = projects.slice(0, 3);
     .visual { order: -1; min-height: 44vh; border-left: none; border-bottom: 1px solid var(--color-border); }
     .left { padding-top: clamp(24px, 4vh, 40px); }
     .headline-block { margin: 0; padding: clamp(28px, 6vh, 56px) 0; }
-    h1 { font-size: clamp(2.8rem, 9vw, 4.6rem); }
-    .sec-head { flex-direction: column; align-items: flex-start; }
+    .hero-name { font-size: clamp(3rem, 13vw, 5rem); }
   }
   @media (max-width: 520px) {
-    .frame { inset: 18px; }
     .slot-caption { left: 18px; bottom: 38px; }
-    .scrubber { left: 18px; right: 18px; }
   }
 </style>

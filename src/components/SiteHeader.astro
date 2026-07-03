@@ -1,7 +1,7 @@
 ---
 // Persistent site header (PLAT-01). Wordmark = "CHANDRAN" (sketch 002, W3).
 const links = [
-  { label: 'About', href: '/about' },
+  { label: 'Manifesto', href: '/about' },
   { label: 'Work', href: '/work' },
   { label: 'Journey', href: '/journey' },
 ];
@@ -36,7 +36,7 @@ const links = [
     font-family: var(--font-mono);
     font-weight: 700;
     font-size: clamp(1.4rem, 1rem + 1.4vw, 2.1rem);
-    letter-spacing: 0.22em;
+    letter-spacing: 0.12em;
   }
   .nav-links { display: flex; align-items: center; gap: clamp(24px, 2.4vw, 44px); }
   .nav-links .link {
@@ -48,7 +48,7 @@ const links = [
     transition: color 0.2s;
     white-space: nowrap;
   }
-  .nav-links .link:hover { color: var(--color-text); }
+  .nav-links .link:hover { color: var(--color-blue); }
 
   .menu-btn {
     display: none;

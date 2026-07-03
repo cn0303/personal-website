@@ -24,24 +24,71 @@ export const site = {
 };
 
 // The "bets": what Chandran is building toward outside any one employer.
-export const bets = [
+// Short elevator pitches, each paired with a thin-line LineIcon.
+export const bets: { n: string; title: string; icon: 'coordframe' | 'statemachine' | 'node'; body: string }[] = [
   {
     n: '01',
     title: 'Classical reliability, foundation-model flexibility',
+    icon: 'coordframe',
     body:
-      'Classical robotics gives industry repeatability and fine-grained control in structured environments. VLAs and world models promise adaptability in messy environments. The interesting bridge is keeping the control and reliability while gaining the generality.',
+      'Keep the reliability and fine control of classical robotics while gaining the generality of foundation models.',
   },
   {
     n: '02',
     title: 'Interpretability is only half the job',
+    icon: 'statemachine',
     body:
-      'It is not enough to know what a robot policy is doing. I care about whether we can expose useful handles inside the task - stages, failure modes, uncertainty, operator intent - and use them to steer the behavior without throwing away end-to-end learning.',
+      'Knowing what a policy does is not enough. Expose handles inside the task and use them to steer it.',
   },
   {
     n: '03',
     title: 'Reliability comes from supervision loops',
+    icon: 'node',
     body:
-      'For embodied AI to work repeatedly in unstructured environments, humans need ways to inspect, intervene, correct, and trust the system. The long-term goal is robot autonomy that can be understood and steered well enough to become dependable.',
+      'Robots earn trust when people can inspect, correct, and step in. That loop is where reliability lives.',
+  },
+];
+
+// Current focus areas (home page). Each maps to a thin-line LineIcon `icon`.
+// Kept deliberately specific — no "passionate about everything" filler.
+export const focusAreas: {
+  n: string;
+  title: string;
+  icon: 'gripper' | 'frustum' | 'field' | 'spark';
+  tag: string;
+  body: string;
+}[] = [
+  {
+    n: '01',
+    title: 'Startup Experiments',
+    icon: 'spark',
+    tag: 'ZERO-TO-ONE',
+    body:
+      'Zero-to-one bets: a berry-harvesting company, a voice app I shipped to both app stores, and a string of hackathon prototypes. Proof that I actually finish and ship things.',
+  },
+  {
+    n: '02',
+    title: 'Robust Manipulation',
+    icon: 'gripper',
+    tag: 'CONTACT-RICH',
+    body:
+      'Grasping and contact-rich control that still works when objects shift, slip, and refuse to cooperate. Learned policies backed by classical control so they stay reliable.',
+  },
+  {
+    n: '03',
+    title: 'Embodied Perception',
+    icon: 'frustum',
+    tag: 'SENSING',
+    body:
+      'Vision and state estimation that hold up in bad light, occlusion, and clutter, from stereo depth to figuring out what a policy is actually seeing.',
+  },
+  {
+    n: '04',
+    title: 'Outdoor Robotics',
+    icon: 'field',
+    tag: 'OUTDOOR',
+    body:
+      'Robots that have to work outside the lab, on strawberry rows, uneven ground, and port terminals, where things break in ways you never see indoors.',
   },
 ];
 
@@ -66,7 +113,7 @@ export const projects: Project[] = [
     title: 'Alpine Valley: Berry-Harvesting VLA',
     year: '2026',
     context: 'Founder in Residence / Latent Robotics',
-    oneLiner: 'Tried building an agri-robotics company, then found the deeper problem: controllable embodied AI.',
+    oneLiner: 'Building an agri-robotics company led me to the deeper problem: controllable embodied AI.',
     summary:
       'At Alpine Valley, I worked on autonomous berry harvesting with SO-101 robot arms, SmolVLA, teleoperation datasets, HG-DAGGER, MuJoCo/RL experiments, foundation stereo, and end-to-end VLA training. The application was strawberry picking, but the pivot was technical: modern robot foundation models need better interpretability, steerability, and validation before they can become reliable deployment systems.',
     highlights: [
@@ -445,20 +492,50 @@ export const education = [
   },
 ];
 
-// Where I've worked, studied, competed, and contributed.
-// `logo` entries have a monochrome SVG in /public/logos; the rest render as wordmarks.
-export const affiliations: { name: string; logo?: string }[] = [
-  { name: 'Qafka Robotics' },
-  { name: 'Lely' },
-  { name: 'TU Delft' },
-  { name: 'NITK Surathkal' },
-  { name: 'Hugging Face', logo: '/logos/huggingface.svg' },
-  { name: 'Alpine Valley' },
-  { name: 'Arduino', logo: '/logos/arduino.svg' },
-  { name: 'Snap', logo: '/logos/snapchat.svg' },
-  { name: 'IEEE', logo: '/logos/ieee.svg' },
-  { name: 'Frontiers' },
-  { name: 'Junction' },
+// Track record, grouped so the relationship is unambiguous (not "he worked at Snap").
+// `logo` points to a file in /public/logos; items without one render as a wordmark.
+export const affiliationGroups: {
+  label: string;
+  items: { name: string; logo?: string }[];
+}[] = [
+  {
+    label: 'Experience',
+    items: [
+      { name: 'Qafka Robotics', logo: '/logos/journey/qafka.png' },
+      { name: 'Lely', logo: '/logos/journey/lely.png' },
+      { name: 'Alpine Valley', logo: '/logos/alpinevalley.svg' },
+      { name: 'Bajaj Auto' },
+    ],
+  },
+  {
+    label: 'Education',
+    items: [
+      { name: 'TU Delft', logo: '/logos/journey/tudelft.png' },
+      { name: 'NITK Surathkal', logo: '/logos/journey/nitk.png' },
+    ],
+  },
+  {
+    label: 'Open Source',
+    items: [
+      { name: 'Hugging Face', logo: '/logos/journey/huggingface.png' },
+      { name: 'Arduino', logo: '/logos/arduino.svg' },
+    ],
+  },
+  {
+    label: 'Publications',
+    items: [
+      { name: 'IEEE', logo: '/logos/journey/ieee.png' },
+      { name: 'Frontiers', logo: '/logos/journey/frontiers.png' },
+    ],
+  },
+  {
+    label: 'Hackathons',
+    items: [
+      { name: 'Snap', logo: '/logos/journey/snap.png' },
+      { name: 'Junction', logo: '/logos/journey/junction.png' },
+      { name: 'Hugging Face', logo: '/logos/journey/huggingface.png' },
+    ],
+  },
 ];
 
 // Per-project media. cover/gallery are filenames under src/assets/projects/<slug>/
@@ -478,7 +555,8 @@ export const projectMedia: Record<string, ProjectMedia> = {
     gallery: ['g1.png', 'g2.png', 'g3.png', 'g4.png', 'g5.png'],
   },
   'vla-interpretability-strawberry': {
-    cover: 'cover.png',
+    cover: 'fig3.png',
+    coverFit: 'contain',
     video: '/media/brainmap.mp4',
     poster: '/media/brainmap-poster.png',
     gallery: ['fig1.png', 'fig2.png', 'fig3.png', 'fig4.png', 'fig5.png', 'fig6.png'],

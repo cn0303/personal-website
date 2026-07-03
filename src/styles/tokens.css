@@ -10,16 +10,25 @@
   --font-sans:  'Satoshi', 'Inter', system-ui, -apple-system, sans-serif;
   --font-mono:  'JetBrains Mono', 'SFMono-Regular', Menlo, monospace;
 
-  /* Palette — dark cinematic */
+  /* Palette — "Midnight Field Notes": robotics lab at midnight.
+     Two signal colors with distinct jobs:
+       accent (burnt orange) = status / system / numbers / active state
+       blue   (electric)     = links / technical highlights / annotations   */
   --color-bg:         #0a0b0d;
-  --color-surface:    #131519;
+  --color-surface:    #131519;   /* muted graphite panel */
+  --color-panel:      #101318;   /* darker inset panel / image slot */
   --color-border:     rgba(255, 255, 255, 0.14);
+  --color-hairline:   rgba(255, 255, 255, 0.09);  /* thin field-note dividers */
   --color-text:       #f3f1ea;
   --color-text-muted: #a4a196;
   --color-ink:        #f3f1ea;   /* light pills/buttons on dark */
   --color-ink-text:   #0a0b0d;
-  --color-accent:     #d6492e;   /* one restrained signal color */
+  --color-accent:     #d6592e;   /* robotic burnt orange — status/system */
+  --color-accent-dim: rgba(214, 89, 46, 0.14);
+  --color-blue:       #5aa2ff;   /* electric blue — links / technical */
+  --color-blue-dim:   rgba(90, 162, 255, 0.13);
   --color-grid:       rgba(255, 255, 255, 0.10);
+  --color-tick:       rgba(243, 241, 234, 0.22);  /* corner brackets / ruler ticks */
 
   /* Fluid type scale */
   --text-xs:    0.75rem;

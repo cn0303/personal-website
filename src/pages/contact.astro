@@ -52,9 +52,11 @@ import { site } from '../data/site';
     transition: padding-left 0.25s var(--ease), color 0.2s;
   }
   .channel:hover { padding-left: 16px; }
+  .channel:hover .ch-value { color: var(--color-blue); }
+  .channel:hover .ch-arrow { transform: translate(2px, -2px); }
   .ch-label { font-family: var(--font-mono); font-size: 0.78rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--color-text-muted); }
-  .ch-value { font-family: var(--font-serif); font-size: clamp(1.3rem, 1rem + 1.4vw, 2.2rem); }
-  .ch-arrow { color: var(--color-accent); font-family: var(--font-mono); }
+  .ch-value { font-family: var(--font-sans); font-weight: 600; letter-spacing: -0.01em; font-size: clamp(1.3rem, 1rem + 1.4vw, 2.2rem); transition: color 0.2s var(--ease); }
+  .ch-arrow { color: var(--color-blue); font-family: var(--font-mono); transition: transform 0.2s var(--ease); }
   .loc { margin-top: 40px; font-family: var(--font-mono); font-size: 0.85rem; color: var(--color-text-muted); }
 
   @media (max-width: 640px) {
