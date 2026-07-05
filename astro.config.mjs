@@ -3,5 +3,5 @@ import { defineConfig } from 'astro/config';
 
 // https://astro.build/config
 export default defineConfig({
-  // site: 'https://your-domain.com', // set at deploy time (DPLY-02)
+  site: 'https://chandran-n.com',
 });
