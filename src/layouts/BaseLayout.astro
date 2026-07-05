@@ -43,5 +43,22 @@ const {
   </head>
   <body>
     <slot />
+    <script>
+      // Reassemble obfuscated email links client-side. The real address never
+      // appears in the served HTML, so scrapers can't harvest it.
+      document.querySelectorAll('[data-eml]').forEach((el) => {
+        const raw = el.getAttribute('data-eml');
+        if (!raw) return;
+        const addr = raw
+          .split(',')
+          .map(Number)
+          .reverse()
+          .map((n) => String.fromCharCode(n))
+          .join('');
+        el.setAttribute('href', 'mailto:' + addr);
+        const text = el.querySelector('[data-eml-text]');
+        if (text) text.textContent = addr;
+      });
+    </script>
   </body>
 </html>

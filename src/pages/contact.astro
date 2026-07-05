@@ -1,6 +1,6 @@
 ---
 import PageLayout from '../layouts/PageLayout.astro';
-import { site } from '../data/site';
+import { site, emailEnc, emailHint } from '../data/site';
 ---
 
 <PageLayout title="Contact - Chandran Nandkumar" description="Get in touch about robotics, embodied AI, interpretability, steerability, and technical writing.">
@@ -14,14 +14,14 @@ import { site } from '../data/site';
     </p>
 
     <div class="channels">
-      <a class="channel" href={`mailto:${site.email}`}>
+      <a class="channel" href="#" data-eml={emailEnc}>
         <span class="ch-label">Email</span>
-        <span class="ch-value">{site.email}</span>
+        <span class="ch-value" data-eml-text>{emailHint}</span>
         <span class="ch-arrow">↗</span>
       </a>
       <a class="channel" href={site.links.linkedin} target="_blank" rel="noopener">
         <span class="ch-label">LinkedIn</span>
-        <span class="ch-value">/in/chandran-nandkumar</span>
+        <span class="ch-value">linkedin.com/in/chandran-nandkumar</span>
         <span class="ch-arrow">↗</span>
       </a>
       <a class="channel" href={site.links.github} target="_blank" rel="noopener">
@@ -31,7 +31,7 @@ import { site } from '../data/site';
       </a>
       <a class="channel" href={site.links.huggingface} target="_blank" rel="noopener">
         <span class="ch-label">Hugging Face</span>
-        <span class="ch-value">Read writing &amp; robotics work</span>
+        <span class="ch-value">huggingface.co/cn0303</span>
         <span class="ch-arrow">↗</span>
       </a>
     </div>

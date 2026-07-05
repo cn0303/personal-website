@@ -8,7 +8,7 @@ export const site = {
   company: 'Incoming Rapid Prototyping Engineer at Lely',
   location: 'Netherlands',
   // TODO: swap custom domain at deploy.
-  email: 'chandran-nandkumar@gmail.com',
+  email: 'chandran.nandkumar@gmail.com',
   resume: '/Chandran-Nandkumar-Resume.pdf',
   links: {
     linkedin: 'https://www.linkedin.com/in/chandran-nandkumar',
@@ -22,6 +22,20 @@ export const site = {
   lede:
     'Professionally, I build real robotics systems. Independently, I am betting on the missing layer around embodied foundation models: interpretability, steerability, and reliability for robots that have to work outside clean lab conditions.',
 };
+
+// Email obfuscation: no plain "user@domain" string or mailto: is ever emitted
+// into the static HTML. The address is encoded as reversed char-codes and
+// reassembled client-side, which defeats the regex scrapers that harvest inboxes.
+export const emailEnc = site.email
+  .split('')
+  .map((c) => c.charCodeAt(0))
+  .reverse()
+  .join(',');
+// Human-readable, non-parseable fallback shown when JS is off.
+export const emailHint = (() => {
+  const [user, domain] = site.email.split('@');
+  return `${user} [at] ${domain.replace(/\./g, ' [dot] ')}`;
+})();
 
 // The "bets": what Chandran is building toward outside any one employer.
 // Short elevator pitches, each paired with a thin-line LineIcon.
@@ -501,7 +515,7 @@ export const affiliationGroups: {
   {
     label: 'Experience',
     items: [
-      { name: 'Qafka Robotics', logo: '/logos/journey/qafka.png' },
+      { name: 'Qafka Robotics', logo: '/logos/qafka.jpg' },
       { name: 'Lely', logo: '/logos/journey/lely.png' },
       { name: 'Alpine Valley', logo: '/logos/alpinevalley.svg' },
       { name: 'Bajaj Auto' },
