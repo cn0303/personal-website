@@ -422,9 +422,9 @@ export const timeline: TimelineEntry[] = [
   {
     year: '2025',
     title: 'I used hackathons as fast robotics labs',
-    org: 'FORGIS / Snap / Junction',
+    org: 'Snap / FORGIS / EF / Junction',
     body:
-      'The hackathons were not the identity, but they were useful reps. I built and pitched pieces of systems quickly: a Dobot pick-and-place demo, an AR Hyrox coach, and an elderly-care robot. They trained speed, taste, and the habit of getting a physical prototype to actually move.',
+      'The hackathons were not the identity, but they were useful reps. I won at Snap, FORGIS, and EF, and built a range of things fast along the way: a Dobot pick-and-place demo, an AR Hyrox coach, and an elderly-care robot at Junction. They trained speed, taste, and the habit of getting a physical prototype to actually move.',
     kind: 'award',
   },
   {
@@ -529,17 +529,12 @@ export const affiliationGroups: {
     ],
   },
   {
-    label: 'Open Source',
+    label: 'Published & Open Source',
     items: [
       { name: 'Hugging Face', logo: '/logos/journey/huggingface.png' },
-      { name: 'Arduino', logo: '/logos/arduino.svg' },
-    ],
-  },
-  {
-    label: 'Publications',
-    items: [
       { name: 'IEEE', logo: '/logos/journey/ieee.png' },
       { name: 'Frontiers', logo: '/logos/journey/frontiers.png' },
+      { name: 'Hackster', logo: '/logos/journey/hackster.png' },
     ],
   },
   {
